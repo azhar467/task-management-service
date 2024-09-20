@@ -1,9 +1,5 @@
-package com.azhar.taskmanagement.dto;
+package com.azhar.taskmanagement.dao.dto;
 
-import com.azhar.taskmanagement.dao.Project;
-import com.azhar.taskmanagement.dao.User;
-import com.azhar.taskmanagement.enums.TaskPriority;
-import com.azhar.taskmanagement.enums.TaskStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

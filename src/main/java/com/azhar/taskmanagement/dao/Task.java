@@ -1,7 +1,7 @@
 package com.azhar.taskmanagement.dao;
 
-import com.azhar.taskmanagement.enums.TaskPriority;
-import com.azhar.taskmanagement.enums.TaskStatus;
+import com.azhar.taskmanagement.dao.enums.TaskPriority;
+import com.azhar.taskmanagement.dao.enums.TaskStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 

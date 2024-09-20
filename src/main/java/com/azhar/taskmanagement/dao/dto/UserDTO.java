@@ -1,4 +1,4 @@
-package com.azhar.taskmanagement.dto;
+package com.azhar.taskmanagement.dao.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

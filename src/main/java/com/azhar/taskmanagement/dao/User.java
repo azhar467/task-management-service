@@ -1,6 +1,6 @@
 package com.azhar.taskmanagement.dao;
 
-import com.azhar.taskmanagement.enums.UserRole;
+import com.azhar.taskmanagement.dao.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.Data;
 

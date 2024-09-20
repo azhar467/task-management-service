@@ -1,4 +1,4 @@
-package com.azhar.taskmanagement.enums;
+package com.azhar.taskmanagement.dao.enums;
 
 public enum UserRole {
 
