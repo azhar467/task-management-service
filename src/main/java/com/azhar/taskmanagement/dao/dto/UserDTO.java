@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -13,6 +14,8 @@ import java.util.List;
 public class UserDTO {
 
     private String name;
+    private String gender;
+    private LocalDate dateOfBirth;
     private String email;
     private String role;  // Use UserRole Enum in String format
     private LocalDateTime createdAt;

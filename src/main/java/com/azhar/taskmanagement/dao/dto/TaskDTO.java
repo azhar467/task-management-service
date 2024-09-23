@@ -10,8 +10,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TaskDTO {
-
-    private Long id;
     private String title;
     private String description;
     private String status;  // Use TaskStatus Enum in String format
@@ -23,5 +21,4 @@ public class TaskDTO {
     private LocalDateTime dueDate;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-
 }

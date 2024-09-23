@@ -1,7 +1,8 @@
 package com.azhar.taskmanagement.controller;
 
-import com.azhar.taskmanagement.service.UserService;
+import com.azhar.taskmanagement.service.BaseService;
 import com.azhar.taskmanagement.dao.dto.UserDTO;
+import com.azhar.taskmanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,10 +12,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
-public class UserController {
+public class UserController extends BaseService {
 
     @Autowired
-    UserService userService;
+    protected UserService userService;
 
     @PostMapping("/addUser")
     public ResponseEntity<UserDTO> addUser(@RequestBody UserDTO userDTO){
@@ -32,7 +33,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserDTO> updateUser(@PathVariable Long id,@RequestBody UserDTO userDTO){
+    public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @RequestBody UserDTO userDTO){
         return ResponseEntity.ok(userService.updateUser(id,userDTO));
     }
 

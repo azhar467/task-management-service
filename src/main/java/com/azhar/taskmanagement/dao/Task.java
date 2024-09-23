@@ -6,6 +6,9 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.SourceType;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -43,18 +46,10 @@ public class Task {
     private LocalDateTime dueDate;
 
     @Column(name = "created_at",updatable = false)
+    @CreationTimestamp(source = SourceType.DB)
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at")
+    @UpdateTimestamp(source = SourceType.DB)
     private LocalDateTime updatedAt;
-
-    @PrePersist
-    protected void onCreate() {
-        this.createdAt = LocalDateTime.now();
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        this.updatedAt = LocalDateTime.now();
-    }
 }
