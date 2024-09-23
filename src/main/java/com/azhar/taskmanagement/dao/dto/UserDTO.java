@@ -12,7 +12,6 @@ import java.util.List;
 @NoArgsConstructor
 public class UserDTO {
 
-    private Long id;
     private String name;
     private String email;
     private String role;  // Use UserRole Enum in String format

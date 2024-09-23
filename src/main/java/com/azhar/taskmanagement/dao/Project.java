@@ -1,7 +1,9 @@
 package com.azhar.taskmanagement.dao;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -12,7 +14,7 @@ import java.util.List;
 public class Project {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) @Setter(AccessLevel.NONE)
     private Long id;
 
     @Column(nullable = false, length = 255)

@@ -1,15 +1,16 @@
 package com.azhar.taskmanagement.service;
 
-import com.azhar.taskmanagement.dao.User;
+
 import com.azhar.taskmanagement.dao.dto.UserDTO;
-import com.azhar.taskmanagement.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
-public class UserService {
-
-    @Autowired
-    UserRepository userRepository;
-
+public interface UserService {
+    UserDTO saveUser(UserDTO userdto);
+    List<UserDTO> getAllUsers();
+    UserDTO getUserById(Long id);
+    UserDTO updateUser(Long id,UserDTO userDTO);
+    void deleteUser(Long id);
 }
