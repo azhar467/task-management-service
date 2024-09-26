@@ -3,7 +3,7 @@ name: Build and Push Docker Image to ECR
 on:
   push:
     branches:
-      - master  # or your default branch
+      - master  # Trigger on pushes to the master branch
 
 jobs:
   build:
@@ -13,22 +13,26 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
 
+      - name: Debug AWS Region
+        run: |
+          echo "AWS Region: ${{ secrets.AWS_REGION }}"  # Log AWS region to debug
+
       - name: Log in to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v1
         with:
-          region: ${{ secrets.AWS_REGION }}  # Correctly reference the region
-          mask-password: false  # Optional: Set to true if you want to mask passwords
-          registry-type: private  # Make sure you are using private if that's what you want
-          skip-logout: false  # Adjust according to your needs
+          region: ${{ secrets.AWS_REGION }}  # Ensure this secret is set correctly
+          mask-password: false
+          registry-type: private
+          skip-logout: false
 
       - name: Build Docker image
         run: |
-          docker build -t your-repository-name .
+          docker build -t task-management-service .
 
       - name: Tag Docker image
         run: |
-          docker tag your-repository-name:latest your-account-id.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/your-repository-name:latest
+          docker tag task-management-service:latest 789761962952.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/azhar467/task-management-service:latest
 
       - name: Push Docker image to ECR
         run: |
-          docker push your-account-id.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/your-repository-name:latest
+          docker push 789761962952.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/azhar467/task-management-service:latest
