@@ -3,8 +3,7 @@ name: Build and Push Docker Image to ECR
 on:
   push:
     branches:
-      - main
-      - master # Change this to your default branch if it's different
+      - master  # or the branch you're pushing to
 
 jobs:
   build:
@@ -14,20 +13,19 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
       - name: Log in to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v1
+        with:
+          region: ${{ secrets.AWS_REGION }}  # Make sure this secret is set
 
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.ECR_REPOSITORY }}:latest .
+          docker build -t your-repository-name .
 
       - name: Tag Docker image
         run: |
-          docker tag ${{ secrets.ECR_REPOSITORY }}:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPOSITORY }}:latest
+          docker tag your-repository-name:latest your-account-id.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/your-repository-name:latest
 
       - name: Push Docker image to ECR
         run: |
-          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPOSITORY }}:latest
+          docker push your-account-id.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/your-repository-name:latest
