@@ -3,6 +3,7 @@ package com.azhar.taskmanagement.controller;
 import com.azhar.taskmanagement.dao.dto.ProjectDTO;
 import com.azhar.taskmanagement.service.BaseService;
 import com.azhar.taskmanagement.service.ProjectService;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ public class ProjectController extends BaseService {
     protected ProjectService projectService;
 
     @PostMapping("/addProject")
-    public ResponseEntity<ProjectDTO> addProject(@RequestBody ProjectDTO projectDTO){
+    public ResponseEntity<ProjectDTO> addProject(@ParameterObject @RequestBody ProjectDTO projectDTO){
         return new ResponseEntity<>(projectService.saveProject(projectDTO), HttpStatus.CREATED);
     }
 
@@ -32,7 +33,7 @@ public class ProjectController extends BaseService {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProjectDTO> updateProject(@PathVariable("id") Long id,@RequestBody ProjectDTO projectDTO){
+    public ResponseEntity<ProjectDTO> updateProject(@PathVariable("id") Long id,@ParameterObject @RequestBody ProjectDTO projectDTO){
         return ResponseEntity.ok(projectService.updateProjectDetails(id, projectDTO));
     }
 

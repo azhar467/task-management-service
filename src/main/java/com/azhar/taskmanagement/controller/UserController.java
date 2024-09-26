@@ -3,6 +3,7 @@ package com.azhar.taskmanagement.controller;
 import com.azhar.taskmanagement.service.BaseService;
 import com.azhar.taskmanagement.dao.dto.UserDTO;
 import com.azhar.taskmanagement.service.UserService;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ public class UserController extends BaseService {
     protected UserService userService;
 
     @PostMapping("/addUser")
-    public ResponseEntity<UserDTO> addUser(@RequestBody UserDTO userDTO){
+    public ResponseEntity<UserDTO> addUser(@ParameterObject @RequestBody UserDTO userDTO){
         userDTO.setRole(userDTO.getRole().toUpperCase());
         userDTO.setGender(userDTO.getGender().toUpperCase());
         return new ResponseEntity<>(userService.saveUser(userDTO), HttpStatus.CREATED);
@@ -34,7 +35,7 @@ public class UserController extends BaseService {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @RequestBody UserDTO userDTO){
+    public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @ParameterObject @RequestBody UserDTO userDTO){
         return ResponseEntity.ok(userService.updateUser(id,userDTO));
     }
 

@@ -3,6 +3,7 @@ package com.azhar.taskmanagement.controller;
 import com.azhar.taskmanagement.dao.dto.TaskDTO;
 import com.azhar.taskmanagement.service.BaseService;
 import com.azhar.taskmanagement.service.TaskService;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ public class TaskController extends BaseService {
     TaskService taskService;
 
     @PostMapping("/addTask")
-    public ResponseEntity<TaskDTO> addTask(@RequestBody TaskDTO taskDTO){
+    public ResponseEntity<TaskDTO> addTask(@ParameterObject @RequestBody TaskDTO taskDTO){
         taskDTO.setStatus(taskDTO.getStatus().toUpperCase());
         taskDTO.setPriority(taskDTO.getPriority().toUpperCase());
         return new ResponseEntity<>(taskService.saveTask(taskDTO), HttpStatus.CREATED);
@@ -33,7 +34,7 @@ public class TaskController extends BaseService {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TaskDTO> updateTask(@PathVariable Long id, @RequestBody TaskDTO taskDTO){
+    public ResponseEntity<TaskDTO> updateTask(@PathVariable Long id, @ParameterObject @RequestBody TaskDTO taskDTO){
         return ResponseEntity.ok(modelMapper.map(taskService.updateUser(id, taskDTO), TaskDTO.class));
     }
 
