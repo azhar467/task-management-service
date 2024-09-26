@@ -3,7 +3,8 @@ name: Build and Push Docker Image to ECR
 on:
   push:
     branches:
-      - main  # Change this to your default branch if it's different
+      - main
+      - master # Change this to your default branch if it's different
 
 jobs:
   build:
