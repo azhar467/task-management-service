@@ -20,6 +20,7 @@ public class UserController extends BaseService {
     @PostMapping("/addUser")
     public ResponseEntity<UserDTO> addUser(@RequestBody UserDTO userDTO){
         userDTO.setRole(userDTO.getRole().toUpperCase());
+        userDTO.setGender(userDTO.getGender().toUpperCase());
         return new ResponseEntity<>(userService.saveUser(userDTO), HttpStatus.CREATED);
     }
 
