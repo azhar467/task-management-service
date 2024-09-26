@@ -40,12 +40,13 @@ jobs:
       - name: Build Docker Image
         run: |
           docker build -t azhar467/task-management-service:latest .
-          docker images  # Verify that the image was built successfully
 
       # Step 7: Login to ECR
       - name: Login to ECR
         run: aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin 789761962952.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
 
-      # Step 8: Push Docker Image to ECR
+      # Step 8: Tag and Push Docker Image to ECR
       - name: Push Docker Image to ECR
-        run: docker push 789761962952.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/azhar467/task-management-service:latest
+        run: |
+          docker tag azhar467/task-management-service:latest 789761962952.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/azhar467/task-management-service:latest
+          docker push 789761962952.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/azhar467/task-management-service:latest
