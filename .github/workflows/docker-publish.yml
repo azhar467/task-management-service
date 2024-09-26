@@ -27,9 +27,9 @@ jobs:
       # Step 4: SonarQube Code Quality Analysis
       - name: SonarQube Scan
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}  # Set the SonarQube authentication token
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}  # SonarQube token from secrets
         run: mvn sonar:sonar \
-          -Dsonar.projectKey=your_project_key \
+          -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} \
           -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
           -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 
