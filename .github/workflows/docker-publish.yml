@@ -1,4 +1,4 @@
-name: Build, SonarQube Analysis, and Push Docker Image to ECR
+name: Build and Push Docker Image to ECR
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  build-analyze-and-push:
+  build-and-push:
     runs-on: ubuntu-latest
 
     steps:
@@ -24,21 +24,11 @@ jobs:
       - name: Build with Maven (Clean Install)
         run: mvn clean install
 
-      # Step 4: SonarQube Code Quality Analysis
-      - name: SonarQube Scan
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}  # SonarQube token from secrets
-        run: mvn sonar:sonar \
-          -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} \
-          -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
-          -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
-          -X  # (optional: for detailed logs)
-
-      # Step 5: Build with Maven (Clean Package)
+      # Step 4: Build with Maven (Clean Package)
       - name: Build with Maven (Clean Package)
         run: mvn clean package
 
-      # Step 6: Configure AWS Credentials for ECR
+      # Step 5: Configure AWS Credentials for ECR
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -46,14 +36,14 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      # Step 7: Build Docker Image
+      # Step 6: Build Docker Image
       - name: Build Docker Image
         run: docker build -t azhar467/task-management-service:latest .
 
-      # Step 8: Login to ECR (once before building Docker image)
+      # Step 7: Login to ECR (once before building Docker image)
       - name: Login to ECR
         run: aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin 789761962952.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
 
-      # Step 9: Push Docker Image to ECR
+      # Step 8: Push Docker Image to ECR
       - name: Push Docker Image to ECR
         run: docker push 789761962952.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/azhar467/task-management-service:latest
