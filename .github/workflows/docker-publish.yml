@@ -20,12 +20,8 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      # Step 3: Build with Maven (Clean Install)
-      - name: Build with Maven (Clean Install)
-        run: mvn clean install
-
-      # Step 4: Build with Maven (Clean Package)
-      - name: Build with Maven (Clean Package)
+      # Step 3: Build with Maven
+      - name: Build with Maven
         run: mvn clean package
 
   sonarcloud_analysis:
@@ -49,10 +45,9 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn sonar:sonar \
           -Dsonar.projectKey=task-management-service \
-          -Dsonar.organization=azhar467 \ # Replace with your actual organization key
+          -Dsonar.organization=azhar467 \
           -Dsonar.host.url=https://sonarcloud.io \
-          -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
-          -X
+          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 
   push_to_ecr:
     runs-on: ubuntu-latest
