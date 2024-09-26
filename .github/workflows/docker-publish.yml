@@ -22,22 +22,31 @@ jobs:
 
       # Step 3: Build with Maven (Clean Install)
       - name: Build with Maven (Clean Install)
-        run: mvn clean install  # Compiles, tests, and installs the project
+        run: mvn clean install
 
-      # Step 4: SonarQube Code Quality Analysis
+      # Step 4: Display Maven Build Output (optional)
+      - name: Display Maven Output
+        run: cat target/maven-build.log
+
+      # Step 5: SonarQube Code Quality Analysis
       - name: SonarQube Scan
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}  # SonarQube token from secrets
         run: mvn sonar:sonar \
           -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} \
           -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
-          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+          -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
+          -X  # (optional: for detailed logs)
 
-      # Step 5: Build with Maven (Clean Package)
+      # Step 6: Display SonarQube Analysis Output (optional)
+      - name: Display SonarQube Output
+        run: cat target/sonar/sonar-results.txt
+
+      # Step 7: Build with Maven (Clean Package)
       - name: Build with Maven (Clean Package)
-        run: mvn clean package  # Packages the application into the target directory
+        run: mvn clean package
 
-      # Step 6: Configure AWS Credentials for ECR
+      # Step 8: Configure AWS Credentials for ECR
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -45,14 +54,14 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      # Step 7: Build Docker Image
+      # Step 9: Build Docker Image
       - name: Build Docker Image
-        run: docker build -t azhar467/task-management-service .
+        run: docker build -t azhar467/task-management-service:latest .
 
-      # Step 8: Login to ECR
+      # Step 10: Login to ECR (once before building Docker image)
       - name: Login to ECR
         run: aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin 789761962952.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
 
-      # Step 9: Push Docker Image to ECR
+      # Step 11: Push Docker Image to ECR
       - name: Push Docker Image to ECR
         run: docker push 789761962952.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/azhar467/task-management-service:latest
