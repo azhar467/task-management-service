@@ -3,7 +3,7 @@ name: Build and Push Docker Image to ECR
 on:
   push:
     branches:
-      - master  # or the branch you're pushing to
+      - master  # or your default branch
 
 jobs:
   build:
@@ -16,7 +16,10 @@ jobs:
       - name: Log in to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v1
         with:
-          region: ${{ secrets.AWS_REGION }}  # Make sure this secret is set
+          region: ${{ secrets.AWS_REGION }}  # Correctly reference the region
+          mask-password: false  # Optional: Set to true if you want to mask passwords
+          registry-type: private  # Make sure you are using private if that's what you want
+          skip-logout: false  # Adjust according to your needs
 
       - name: Build Docker image
         run: |
