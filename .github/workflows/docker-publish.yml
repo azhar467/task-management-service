@@ -39,7 +39,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      # Step 3: SonarCloud Code Quality Analysis using sonar-project.properties
+      # Step 3: SonarCloud Code Quality Analysis
       - name: SonarCloud Scan
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
