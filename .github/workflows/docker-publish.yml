@@ -39,15 +39,11 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      # Step 3: SonarCloud Code Quality Analysis
+      # Step 3: SonarCloud Code Quality Analysis using sonar-project.properties
       - name: SonarCloud Scan
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn sonar:sonar \
-          -Dsonar.projectKey=task-management-service \
-          -Dsonar.organization=azhar467 \
-          -Dsonar.host.url=https://sonarcloud.io \
-          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+        run: mvn sonar:sonar
 
   push_to_ecr:
     runs-on: ubuntu-latest
