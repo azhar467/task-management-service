@@ -28,7 +28,7 @@ jobs:
       - name: Verify JAR exists
         run: ls target/
 
-      # Step 5: Upload the JAR as an artifact to make it available to the next job
+      # Step 5: Upload the JAR as an artifact to be used in the next job
       - name: Upload JAR as artifact
         uses: actions/upload-artifact@v3
         with:
@@ -40,10 +40,10 @@ jobs:
     needs: build  # This job depends on the 'build' job
 
     steps:
-      # Step 1: Checkout code
+      # Step 1: Checkout code (for Dockerfile and other files)
       - uses: actions/checkout@v3
 
-      # Step 2: Download the built JAR artifact
+      # Step 2: Download the built JAR artifact from the previous job
       - name: Download JAR artifact
         uses: actions/download-artifact@v3
         with:
