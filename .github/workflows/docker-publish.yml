@@ -24,7 +24,11 @@ jobs:
       - name: Build with Maven
         run: mvn clean package
 
-      # Step 4: Upload the JAR as an artifact to make it available to the next job
+      # Step 4: Verify the JAR exists
+      - name: Verify JAR exists
+        run: ls target/
+
+      # Step 5: Upload the JAR as an artifact to make it available to the next job
       - name: Upload JAR as artifact
         uses: actions/upload-artifact@v3
         with:
@@ -45,7 +49,11 @@ jobs:
         with:
           name: task-management-service-jar
 
-      # Step 3: Configure AWS Credentials for ECR
+      # Step 3: Verify the JAR is downloaded
+      - name: Verify JAR downloaded
+        run: ls .
+
+      # Step 4: Configure AWS Credentials for ECR
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -53,16 +61,16 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      # Step 4: Build Docker Image
+      # Step 5: Build Docker Image
       - name: Build Docker Image
         run: |
           docker build -t azhar467/task-management-service:latest .
 
-      # Step 5: Login to ECR
+      # Step 6: Login to ECR
       - name: Login to ECR
         run: aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin 789761962952.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
 
-      # Step 6: Tag and Push Docker Image to ECR
+      # Step 7: Tag and Push Docker Image to ECR
       - name: Push Docker Image to ECR
         run: |
           docker tag azhar467/task-management-service:latest 789761962952.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/azhar467/task-management-service:latest
