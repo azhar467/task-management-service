@@ -20,7 +20,7 @@ FROM openjdk:17-jdk-slim
 WORKDIR /app
 
 # Copy the built JAR file from the build stage
-COPY --from=build /app/target/*.jar task-management-service.jar
+COPY --from=build /app/target/task-management-service-0.0.1-SNAPSHOT.jar task-management-service.jar
 
 # Expose the port your application will run on
 EXPOSE 8080
