@@ -1,6 +1,3 @@
-# Stage 1: Build the application using Maven
-FROM maven:3.9.1-jdk-17 AS build
-
 # Set the working directory for the build stage
 WORKDIR /app
 
