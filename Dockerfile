@@ -1,21 +1,11 @@
-# Set the working directory for the build stage
-WORKDIR /app
-
-# Copy the pom.xml and the source code into the container
-COPY pom.xml .
-COPY src ./src
-
-# Build the application (this will create the JAR file in the target directory)
-RUN mvn clean package -DskipTests
-
-# Stage 2: Create the final image
+# Use an official OpenJDK 17 image as a base
 FROM openjdk:17-jdk-slim
 
-# Set the working directory inside the container
+# Set the working directory inside the container (this will be created if it doesn't exist)
 WORKDIR /app
 
-# Copy the built JAR file from the previous stage
-COPY --from=build /app/target/task-management-service-0.0.1-SNAPSHOT.jar /app/task-management-service.jar
+# Copy the built JAR file from the host machine to the container
+COPY target/task-management-service-0.0.1-SNAPSHOT.jar /app/task-management-service.jar
 
 # Expose the port your application will run on
 EXPOSE 8080
