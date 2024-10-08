@@ -1,17 +1,14 @@
-# Use an official OpenJDK 17 image as a base
-FROM openjdk:17-jdk-slim
-
-# Set the working directory inside the container (this will be created if it doesn't exist)
+# Stage 1: Build the application
+FROM maven:3.9.1-openjdk-17 AS build
 WORKDIR /app
+COPY pom.xml .
+COPY src ./src
+RUN mvn clean package -DskipTests
 
-# Copy the built JAR file from the host machine to the container
-COPY target/task-management-service-0.0.1-SNAPSHOT.jar /app/task-management-service.jar
-
-# Expose the port your application will run on
+# Stage 2: Create the final image
+FROM openjdk:17-jdk-slim
+WORKDIR /app
+COPY --from=build /app/target/task-management-service-0.0.1-SNAPSHOT.jar /app/task-management-service.jar
 EXPOSE 8080
-
-# Set the image name
 LABEL name="task-management-service"
-
-# Run the application
 ENTRYPOINT ["java", "-jar", "/app/task-management-service.jar"]
