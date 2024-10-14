@@ -7,6 +7,7 @@ import com.azhar.taskmanagement.dao.dto.UserDTO;
 
 import com.azhar.taskmanagement.dao.enums.Gender;
 import com.azhar.taskmanagement.dao.enums.UserRole;
+import com.azhar.taskmanagement.exception.EntityNotFoundException;
 import com.azhar.taskmanagement.service.BaseService;
 import com.azhar.taskmanagement.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -47,7 +48,7 @@ public class UserServiceImpl extends BaseService implements UserService {
 
     @Override
     public UserDTO updateUser(Long id, UserDTO userDTO) {
-        User dbUser = userRepository.findById(id).orElseThrow(()-> new RuntimeException("UserId id not found"));
+        User dbUser = userRepository.findById(id).orElseThrow(()-> new EntityNotFoundException(" UserId: ",id));
         dbUser.setName(userDTO.getName());
         dbUser.setUpdatedAt(LocalDateTime.now());
         dbUser.setEmail(userDTO.getEmail());

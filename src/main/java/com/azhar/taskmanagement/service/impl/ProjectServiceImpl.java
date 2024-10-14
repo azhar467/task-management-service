@@ -4,6 +4,7 @@ import com.azhar.taskmanagement.dao.Project;
 import com.azhar.taskmanagement.dao.Task;
 import com.azhar.taskmanagement.dao.User;
 import com.azhar.taskmanagement.dao.dto.ProjectDTO;
+import com.azhar.taskmanagement.exception.EntityNotFoundException;
 import com.azhar.taskmanagement.service.BaseService;
 import com.azhar.taskmanagement.service.ProjectService;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +12,6 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Component
@@ -32,7 +32,7 @@ public class ProjectServiceImpl extends BaseService implements ProjectService {
     @Override
     public List<ProjectDTO> getAllProjects() {
         List<Project> projects= projectRepository.findAll();
-        return projects.stream().map(project -> modelMapper.map(project, ProjectDTO.class)).collect(Collectors.toList());
+        return projects.stream().map(project -> modelMapper.map(project, ProjectDTO.class)).toList();
     }
 
     @Override
@@ -53,7 +53,7 @@ public class ProjectServiceImpl extends BaseService implements ProjectService {
             dbProject.setTasks(tasks);
         }
         if (projectDTO.getCreatedById()!=null){
-            User user = userRepository.findById(projectDTO.getCreatedById()).orElseThrow();
+            User user = userRepository.findById(projectDTO.getCreatedById()).orElseThrow(() -> new EntityNotFoundException("UserId: ",projectDTO.getCreatedById()));
             dbProject.setCreatedById(user);
         }
         return modelMapper.map(dbProject, ProjectDTO.class);
