@@ -14,23 +14,6 @@ CREATE TABLE IF NOT EXISTS task_management_service_schema.tasks (
     CONSTRAINT fk_project FOREIGN KEY (project_id) REFERENCES task_management_service_schema.projects(id)  -- Foreign key for project
 );
 
-DROP TRIGGER IF EXISTS set_updated_at ON tasks;
-
--- Create trigger function to update updated_at timestamp on row update
-CREATE OR REPLACE FUNCTION update_task_updated_at_column()
-RETURNS TRIGGER AS $$
-BEGIN
-    NEW.updated_at = CURRENT_TIMESTAMP;
-    RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
-
--- Create trigger on the tasks table to call the update function before each row update
-CREATE TRIGGER set_task_updated_at
-BEFORE UPDATE ON task_management_service_schema.tasks
-FOR EACH ROW
-EXECUTE FUNCTION update_task_updated_at_column();
-
 -- Create index on assignee_id to optimize queries filtering by task assignee
 CREATE INDEX idx_tasks_assignee_id ON task_management_service_schema.tasks(assignee_id);
 

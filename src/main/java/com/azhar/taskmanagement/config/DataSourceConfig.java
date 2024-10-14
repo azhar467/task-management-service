@@ -42,8 +42,11 @@ public class DataSourceConfig {
     @Bean
     public Flyway flyway() {
         Map<String, String> secret = secretManagerService.getSecret(databaseSecretName);
-        return Flyway.configure()
+        Flyway flyway = Flyway.configure()
                 .dataSource(dataSourceProperties.getUrl(), secret.get("username"), secret.get("password"))
+                .locations("classpath:db/migration").schemas(dataSourceProperties.getSchema())  // Ensure the migration location is correct
                 .load();
+        flyway.migrate();  // Make sure Flyway is instructed to run the migrations
+        return flyway;
     }
 }

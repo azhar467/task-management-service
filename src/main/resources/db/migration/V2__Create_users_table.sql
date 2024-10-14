@@ -10,23 +10,6 @@ CREATE TABLE IF NOT EXISTS task_management_service_schema.users (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP  -- Timestamp for when the row is updated
 );
 
-DROP TRIGGER IF EXISTS set_updated_at ON users;
-
--- Create trigger function to update updated_at timestamp on row update
-CREATE OR REPLACE FUNCTION update_updated_at_column()
-RETURNS TRIGGER AS $$
-BEGIN
-    NEW.updated_at = CURRENT_TIMESTAMP;
-    RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
-
--- Create trigger on the users table to call the update function before each row update
-CREATE TRIGGER set_updated_at
-BEFORE UPDATE ON task_management_service_schema.users
-FOR EACH ROW
-EXECUTE FUNCTION update_updated_at_column();
-
 -- Create index on email for faster search queries
 CREATE INDEX idx_users_email ON task_management_service_schema.users(email);
 
