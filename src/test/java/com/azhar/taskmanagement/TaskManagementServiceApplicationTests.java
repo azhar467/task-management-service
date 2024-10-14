@@ -8,10 +8,4 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class TaskManagementServiceApplicationTests {
 
-	@Test
-	void testMapper() {
-		UserDTO userDTO = new UserDTO();
-		userDTO.setName("Azhar");
-	}
-
 }
