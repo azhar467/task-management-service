@@ -14,6 +14,8 @@ CREATE TABLE IF NOT EXISTS task_management_service_schema.tasks (
     CONSTRAINT fk_project FOREIGN KEY (project_id) REFERENCES task_management_service_schema.projects(id)  -- Foreign key for project
 );
 
+DROP TRIGGER IF EXISTS set_updated_at ON tasks;
+
 -- Create trigger function to update updated_at timestamp on row update
 CREATE OR REPLACE FUNCTION update_task_updated_at_column()
 RETURNS TRIGGER AS $$

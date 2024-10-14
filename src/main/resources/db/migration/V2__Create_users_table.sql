@@ -10,6 +10,8 @@ CREATE TABLE IF NOT EXISTS task_management_service_schema.users (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP  -- Timestamp for when the row is updated
 );
 
+DROP TRIGGER IF EXISTS set_updated_at ON users;
+
 -- Create trigger function to update updated_at timestamp on row update
 CREATE OR REPLACE FUNCTION update_updated_at_column()
 RETURNS TRIGGER AS $$
