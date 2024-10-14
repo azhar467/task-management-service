@@ -1,9 +1,7 @@
 package com.azhar.taskmanagement.dao;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SourceType;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -12,9 +10,12 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @Entity
-@Table(name = "projects")
+@Table(name = "projects", schema = "task_management_service_schema")
 public class Project {
 
     @Id
@@ -35,6 +36,7 @@ public class Project {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "created_by", nullable = false)
+    @ToString.Exclude
     private User createdById;
 
     @Column(name = "created_at",updatable = false)
@@ -46,6 +48,7 @@ public class Project {
     private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "project", fetch = FetchType.LAZY)
+    @ToString.Exclude
     private List<Task> tasks;
 
 }

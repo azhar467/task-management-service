@@ -1,11 +1,12 @@
-# Use an official Maven image with OpenJDK 17 as a base
+# Use an official Maven image with OpenJDK 17 as a base for the build stage
 FROM maven:3.8.4-openjdk-17-slim AS build
 
 # Set the working directory in the container
 WORKDIR /app
 
-# Copy the pom.xml file
+# Copy the pom.xml file and download dependencies
 COPY pom.xml .
+RUN mvn dependency:go-offline
 
 # Copy the src directory
 COPY src ./src
@@ -29,4 +30,4 @@ EXPOSE 8080
 LABEL name="task-management-service"
 
 # Run the application
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "task-management-service.jar"]
