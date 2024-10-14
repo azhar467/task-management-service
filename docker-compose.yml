@@ -16,7 +16,7 @@ services:
       - backend
 
   task-service:
-    image: <aws_account_id>.dkr.ecr.<region>.amazonaws.com/azhar467/task-management-service:latest
+    image: ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/azhar467/task-management-service:latest
     container_name: task-service
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db:5432/task_management_service
