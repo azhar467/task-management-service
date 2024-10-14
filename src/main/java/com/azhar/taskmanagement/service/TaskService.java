@@ -8,8 +8,8 @@ import java.util.List;
 @Service
 public interface TaskService {
     TaskDTO saveTask(TaskDTO taskDTO);
-    List<TaskDTO> getAllUsers();
-    TaskDTO getUserById(Long id);
-    TaskDTO updateUser(Long id,TaskDTO taskDTO);
-    void deleteUser(Long id);
+    List<TaskDTO> getAllTasks();
+    TaskDTO getTaskById(Long id);
+    TaskDTO updateTask(Long id,TaskDTO taskDTO);
+    void deleteTask(Long id);
 }

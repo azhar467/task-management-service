@@ -7,6 +7,7 @@ import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public class TaskController extends BaseService {
     }
 
     @GetMapping({"/{id}",""})
-    public ResponseEntity<List<TaskDTO>> getTasks(@PathVariable(required = false) Long id){
+    public ResponseEntity<List<TaskDTO>> getTasks(@PathVariable(required = false) @NonNull Long id){
         if (id!=null){
             return new ResponseEntity<>(List.of(modelMapper.map(taskRepository.findById(id).orElseThrow(), TaskDTO.class)),HttpStatus.OK);
         }
@@ -35,12 +36,12 @@ public class TaskController extends BaseService {
 
     @PutMapping("/{id}")
     public ResponseEntity<TaskDTO> updateTask(@PathVariable Long id, @ParameterObject @RequestBody TaskDTO taskDTO){
-        return ResponseEntity.ok(modelMapper.map(taskService.updateUser(id, taskDTO), TaskDTO.class));
+        return ResponseEntity.ok(modelMapper.map(taskService.updateTask(id, taskDTO), TaskDTO.class));
     }
 
     @DeleteMapping("/{id}")
     public void deleteTask(@PathVariable Long id){
-        taskService.deleteUser(id);
+        taskService.deleteTask(id);
     }
 
 }
