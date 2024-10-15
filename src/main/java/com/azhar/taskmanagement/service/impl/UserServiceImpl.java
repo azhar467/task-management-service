@@ -15,13 +15,14 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @Component
 @Slf4j
 public class UserServiceImpl extends BaseService implements UserService {
 
     @Override
-    public UserDTO saveUser(UserDTO userdto){
+    public CompletableFuture<UserDTO> saveUser(UserDTO userdto){
         User user = modelMapper.map(userdto,User.class);
         if (userdto.getProjectIds()!=null){
             user.setProjects(projectRepository.findAllById(userdto.getProjectIds()));
@@ -31,23 +32,24 @@ public class UserServiceImpl extends BaseService implements UserService {
         }
         User savedUser = userRepository.save(user);
         log.info("Id of the saved user: {}", savedUser.getId());
-        return modelMapper.map(savedUser,UserDTO.class);
+        return CompletableFuture.completedFuture(modelMapper.map(savedUser,UserDTO.class));
     }
 
     @Override
-    public List<UserDTO> getAllUsers() {
+    public CompletableFuture<List<UserDTO>> getAllUsers() {
         List<User> users = userRepository.findAll();
         log.info("Total Number of Users: {}", users.size());
-        return users.stream().map(user -> modelMapper.map(user, UserDTO.class)).toList();
+        return CompletableFuture.completedFuture(users.stream().map(user -> modelMapper.map(user, UserDTO.class)).toList());
     }
 
     @Override
-    public UserDTO getUserById(Long id) {
-        return modelMapper.map(userRepository.findById(id).orElseThrow(),UserDTO.class);
+    public CompletableFuture<UserDTO> getUserById(Long id) {
+        return CompletableFuture.completedFuture(modelMapper.map(userRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("User not found with id: ",id)),UserDTO.class));
     }
 
     @Override
-    public UserDTO updateUser(Long id, UserDTO userDTO) {
+    public CompletableFuture<UserDTO> updateUser(Long id, UserDTO userDTO) {
         User dbUser = userRepository.findById(id).orElseThrow(()-> new EntityNotFoundException(" UserId: ",id));
         dbUser.setName(userDTO.getName());
         dbUser.setUpdatedAt(LocalDateTime.now());
@@ -67,11 +69,12 @@ public class UserServiceImpl extends BaseService implements UserService {
                 project.setCreatedById(dbUser);
             }
         }
-        return modelMapper.map(userRepository.save(dbUser), UserDTO.class);
+        return CompletableFuture.completedFuture(modelMapper.map(userRepository.save(dbUser), UserDTO.class));
     }
 
     @Override
-    public void deleteUser(Long id){
+    public CompletableFuture<Void> deleteUser(Long id){
         userRepository.deleteById(id);
+        return CompletableFuture.completedFuture(null);
     }
 }

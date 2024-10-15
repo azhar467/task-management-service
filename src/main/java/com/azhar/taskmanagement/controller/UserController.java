@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequestMapping("/api/users")
@@ -19,28 +20,28 @@ public class UserController extends BaseService {
     protected UserService userService;
 
     @PostMapping("/addUser")
-    public ResponseEntity<UserDTO> addUser(@ParameterObject @RequestBody UserDTO userDTO){
+    public ResponseEntity<CompletableFuture<UserDTO>> addUser(@ParameterObject @RequestBody UserDTO userDTO){
         userDTO.setRole(userDTO.getRole().toUpperCase());
         userDTO.setGender(userDTO.getGender().toUpperCase());
         return new ResponseEntity<>(userService.saveUser(userDTO), HttpStatus.CREATED);
     }
 
     @GetMapping({"/{id}",""})
-    public ResponseEntity<List<UserDTO>> getUsers(@PathVariable(required = false) Long id){
+    public ResponseEntity<CompletableFuture<List<UserDTO>>> getUsers(@PathVariable(required = false) Long id){
         if (id!=null){
-            return new ResponseEntity<>(List.of(userService.getUserById(id)),HttpStatus.OK);
+            return ResponseEntity.ok(userService.getUserById(id).thenApply(List::of));
         } else {
-            return new ResponseEntity<>(userService.getAllUsers(),HttpStatus.OK);
+            return ResponseEntity.ok(userService.getAllUsers());
         }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @ParameterObject @RequestBody UserDTO userDTO){
+    public ResponseEntity<CompletableFuture<UserDTO>> updateUser(@PathVariable Long id, @ParameterObject @RequestBody UserDTO userDTO){
         return ResponseEntity.ok(userService.updateUser(id,userDTO));
     }
 
     @DeleteMapping("/users/{id}")
-    public void deleteUser(@PathVariable(value = "id") Long id){
-        userService.deleteUser(id);
+    public ResponseEntity<CompletableFuture<Void>> deleteUser(@PathVariable(value = "id") Long id){
+        return ResponseEntity.ok(userService.deleteUser(id));
     }
 }

@@ -5,12 +5,13 @@ import com.azhar.taskmanagement.dao.dto.UserDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 public interface UserService {
-    UserDTO saveUser(UserDTO userdto);
-    List<UserDTO> getAllUsers();
-    UserDTO getUserById(Long id);
-    UserDTO updateUser(Long id,UserDTO userDTO);
-    void deleteUser(Long id);
+    CompletableFuture<UserDTO> saveUser(UserDTO userdto);
+    CompletableFuture<List<UserDTO>> getAllUsers();
+    CompletableFuture<UserDTO> getUserById(Long id);
+    CompletableFuture<UserDTO> updateUser(Long id,UserDTO userDTO);
+    CompletableFuture<Void> deleteUser(Long id);
 }
