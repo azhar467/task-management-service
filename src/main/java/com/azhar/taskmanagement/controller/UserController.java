@@ -8,8 +8,6 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
-import org.springdoc.core.annotations.ParameterObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,16 +20,18 @@ import java.util.concurrent.CompletableFuture;
 @Slf4j
 public class UserController extends BaseService {
 
-    @Autowired
-    protected UserService userService;
+    protected final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @PostMapping("/addUser")
     @Operation(summary = "Create a new user", description = "Creates a new user in the system.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "User created successfully."),
             @ApiResponse(responseCode = "400", description = "Bad request - invalid input data.")})
-    public ResponseEntity<CompletableFuture<UserDTO>> saveUser(
-            @ParameterObject @RequestBody UserDTO userDTO) {
+    public ResponseEntity<CompletableFuture<UserDTO>> saveUser(@RequestBody UserDTO userDTO) {
         log.info("Invoked on Thread: {}", Thread.currentThread().getName());
         userDTO.setRole(userDTO.getRole().toUpperCase());
         userDTO.setGender(userDTO.getGender().toUpperCase());
@@ -62,7 +62,7 @@ public class UserController extends BaseService {
     })
     public ResponseEntity<CompletableFuture<UserDTO>> updateUser(
             @Parameter(description = "ID of the user to update.", required = true)
-            @PathVariable Long id, @ParameterObject @RequestBody UserDTO userDTO) {
+            @PathVariable Long id, @RequestBody UserDTO userDTO) {
         return ResponseEntity.ok(userService.updateUser(id, userDTO));
     }
 

@@ -20,7 +20,6 @@ import java.util.List;
 @Slf4j
 public class TaskServiceImpl extends BaseService implements TaskService {
     @Override
-    @CachePut(value = "tasks", key = "#taskDTO.id")
     public TaskDTO saveTask(TaskDTO taskDTO) {
         Task task = modelMapper.map(taskDTO, Task.class);
         task.setProject(projectRepository.findById(taskDTO.getProjectId()).orElseThrow(() -> new EntityNotFoundException("Project: ", taskDTO.getProjectId())));
@@ -30,19 +29,16 @@ public class TaskServiceImpl extends BaseService implements TaskService {
     }
 
     @Override
-    @Cacheable(value = "tasks", key = "'allTasks'")
     public List<TaskDTO> getAllTasks() {
         return taskRepository.findAll().stream().map(task -> modelMapper.map(task, TaskDTO.class)).toList();
     }
 
     @Override
-    @Cacheable(value = "tasks",key = "#id", unless = "#result==null")
     public TaskDTO getTaskById(Long id) {
         return modelMapper.map(taskRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Task with Id: ",id)), TaskDTO.class);
     }
 
     @Override
-    @CachePut(key = "tasks", value = "#id")
     public TaskDTO updateTask(Long id, TaskDTO taskDTO) {
         Task dbTask = taskRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Task with id: ",id));
         dbTask.setTitle(taskDTO.getTitle());
@@ -62,7 +58,6 @@ public class TaskServiceImpl extends BaseService implements TaskService {
     }
 
     @Override
-    @CacheEvict(value = "tasks", allEntries = true)  // Evict cache for 'allTasks'
     public void deleteTask(Long id) {
         taskRepository.deleteById(id);
     }
