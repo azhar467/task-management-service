@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @OpenAPIDefinition(
     info = @Info(
-        title = "Task Management API",
+        title = "Task Management Service API",
         version = "1.0",
         description = "API for managing tasks, users, and projects.",
             contact = @Contact(name = "Azhar Ahmed A",email = "azhar.ahmed467@gmail.com")
