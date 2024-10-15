@@ -3,7 +3,6 @@ package com.azhar.taskmanagement.dao.dto;
 import com.azhar.taskmanagement.dao.enums.Gender;
 import com.azhar.taskmanagement.dao.enums.UserRole;
 import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.media.SchemaProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequestMapping("/api/users")
@@ -31,7 +30,7 @@ public class UserController extends BaseService {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "User created successfully."),
             @ApiResponse(responseCode = "400", description = "Bad request - invalid input data.")})
-    public ResponseEntity<CompletableFuture<UserDTO>> saveUser(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserDTO> saveUser(@RequestBody UserDTO userDTO) {
         log.info("Invoked on Thread: {}", Thread.currentThread().getName());
         userDTO.setRole(userDTO.getRole().toUpperCase());
         userDTO.setGender(userDTO.getGender().toUpperCase());
@@ -43,11 +42,11 @@ public class UserController extends BaseService {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Users retrieved successfully."),
             @ApiResponse(responseCode = "404", description = "User not found.")})
-    public ResponseEntity<CompletableFuture<List<UserDTO>>> getUsers(
+    public ResponseEntity<List<UserDTO>> getUsers(
             @Parameter(description = "ID of the user to retrieve. If not provided, all users will be retrieved.")
             @PathVariable(required = false) Long id) {
         if (id != null) {
-            return ResponseEntity.ok(userService.getUserById(id).thenApply(List::of));
+            return ResponseEntity.ok(List.of(userService.getUserById(id)));
         } else {
             return ResponseEntity.ok(userService.getAllUsers());
         }
@@ -60,7 +59,7 @@ public class UserController extends BaseService {
             @ApiResponse(responseCode = "400", description = "Bad request - invalid input data."),
             @ApiResponse(responseCode = "404", description = "User not found.")
     })
-    public ResponseEntity<CompletableFuture<UserDTO>> updateUser(
+    public ResponseEntity<UserDTO> updateUser(
             @Parameter(description = "ID of the user to update.", required = true)
             @PathVariable Long id, @RequestBody UserDTO userDTO) {
         return ResponseEntity.ok(userService.updateUser(id, userDTO));
@@ -72,9 +71,10 @@ public class UserController extends BaseService {
             @ApiResponse(responseCode = "204", description = "User deleted successfully."),
             @ApiResponse(responseCode = "404", description = "User not found.")
     })
-    public ResponseEntity<CompletableFuture<Void>> deleteUser(
+    public void deleteUser(
             @Parameter(description = "ID of the user to delete.", required = true)
             @PathVariable(value = "id") Long id) {
-        return ResponseEntity.ok(userService.deleteUser(id));
+        log.info("Deleting user with Id: {}",id);
+        userService.deleteUser(id);
     }
 }

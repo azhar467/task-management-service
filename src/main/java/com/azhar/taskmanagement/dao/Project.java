@@ -8,6 +8,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -37,18 +38,17 @@ public class Project {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "created_by", nullable = false)
     @ToString.Exclude
-    private User createdById;
+    private User createdBy;
 
-    @Column(name = "created_at",updatable = false)
+    @OneToMany(mappedBy = "project", fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private List<Task> tasks = new ArrayList<>();
+
+    @Column(name = "created_at", updatable = false)
     @CreationTimestamp(source = SourceType.DB)
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at")
     @UpdateTimestamp(source = SourceType.DB)
     private LocalDateTime updatedAt;
-
-    @OneToMany(mappedBy = "project", fetch = FetchType.LAZY)
-    @ToString.Exclude
-    private List<Task> tasks;
-
 }

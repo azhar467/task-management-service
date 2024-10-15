@@ -1,5 +1,7 @@
 package com.azhar.taskmanagement.service.impl;
 
+import com.azhar.taskmanagement.mappers.TaskMapper;
+import com.azhar.taskmanagement.dao.Project;
 import com.azhar.taskmanagement.dao.Task;
 import com.azhar.taskmanagement.dao.User;
 import com.azhar.taskmanagement.dao.dto.TaskDTO;
@@ -8,9 +10,6 @@ import com.azhar.taskmanagement.exception.EntityNotFoundException;
 import com.azhar.taskmanagement.service.BaseService;
 import com.azhar.taskmanagement.service.TaskService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -21,21 +20,25 @@ import java.util.List;
 public class TaskServiceImpl extends BaseService implements TaskService {
     @Override
     public TaskDTO saveTask(TaskDTO taskDTO) {
-        Task task = modelMapper.map(taskDTO, Task.class);
-        task.setProject(projectRepository.findById(taskDTO.getProjectId()).orElseThrow(() -> new EntityNotFoundException("Project: ", taskDTO.getProjectId())));
-        task.setAssignee(userRepository.findById(taskDTO.getAssigneeId()).orElseThrow(() -> new EntityNotFoundException("User: ",taskDTO.getAssigneeId())));
+        User user = userRepository.findById(taskDTO.getAssigneeId()).get();
+        Project project = projectRepository.findById(taskDTO.getProjectId()).get();
+        Task task = TaskMapper.toEntity(taskDTO, user,project);
+        task.setProject(project);
+        User assignee = userRepository.findById(taskDTO.getAssigneeId()).orElseThrow(() -> new EntityNotFoundException("User: ",taskDTO.getAssigneeId()));
+        task.setAssignee(assignee);
         Task savedTask = taskRepository.save(task);
-        return modelMapper.map(savedTask, TaskDTO.class);
+        userRepository.save(assignee);
+        return TaskMapper.toDto(savedTask);
     }
 
     @Override
     public List<TaskDTO> getAllTasks() {
-        return taskRepository.findAll().stream().map(task -> modelMapper.map(task, TaskDTO.class)).toList();
+        return taskRepository.findAll().stream().map(TaskMapper::toDto).toList();
     }
 
     @Override
     public TaskDTO getTaskById(Long id) {
-        return modelMapper.map(taskRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Task with Id: ",id)), TaskDTO.class);
+        return TaskMapper.toDto(taskRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Task with Id: ",id)));
     }
 
     @Override
@@ -54,7 +57,7 @@ public class TaskServiceImpl extends BaseService implements TaskService {
             dbTask.setProject(projectRepository.findByName(taskDTO.getProjectName()));
         }
         dbTask.setDueDate(taskDTO.getDueDate());
-        return modelMapper.map(dbTask,TaskDTO.class);
+        return TaskMapper.toDto(dbTask);
     }
 
     @Override

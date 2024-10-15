@@ -1,5 +1,6 @@
 package com.azhar.taskmanagement.service.impl;
 
+import com.azhar.taskmanagement.mappers.ProjectMapper;
 import com.azhar.taskmanagement.dao.Project;
 import com.azhar.taskmanagement.dao.Task;
 import com.azhar.taskmanagement.dao.User;
@@ -19,25 +20,41 @@ public class ProjectServiceImpl extends BaseService implements ProjectService {
 
     @Override
     public ProjectDTO saveProject(ProjectDTO projectDTO) {
-        Project project = modelMapper.map(projectDTO, Project.class);
-        project.setCreatedById(userRepository.findById(projectDTO.getCreatedById()).orElseThrow());
-        if (projectDTO.getTaskIds()!=null && projectDTO.getTaskIds().stream().findFirst().get()>0){
-            project.setTasks(taskRepository.findAllById(projectDTO.getTaskIds()));
-        }
+        // Fetch the user who will be associated with the project
+        User user = userRepository.findById(projectDTO.getCreatedById())
+                .orElseThrow(() -> new EntityNotFoundException("User not found with id: ", projectDTO.getCreatedById()));
+
+        // Create a new Project entity from the DTO
+        Project project = new Project();
+        project.setName(projectDTO.getName());
+        project.setDescription(projectDTO.getDescription());
+        project.setStartDate(projectDTO.getStartDate());
+        project.setEndDate(projectDTO.getEndDate());
+        project.setCreatedAt(LocalDateTime.now());
+        project.setUpdatedAt(LocalDateTime.now());
+
+        // Set the User (creator) in the Project entity
+        project.setCreatedBy(user);
+
+        // Add the project to the user (to maintain bidirectional relationship)
+        user.addProject(project);
+
+        // Save the project
         Project savedProject = projectRepository.save(project);
-        log.info("Saved project with Id {}",savedProject.getId());
-        return modelMapper.map(savedProject,ProjectDTO.class);
+
+        // Return the saved project as a DTO
+        return ProjectMapper.toDto(savedProject);
     }
 
     @Override
     public List<ProjectDTO> getAllProjects() {
         List<Project> projects= projectRepository.findAll();
-        return projects.stream().map(project -> modelMapper.map(project, ProjectDTO.class)).toList();
+        return projects.stream().map(ProjectMapper::toDto).toList();
     }
 
     @Override
     public ProjectDTO getProjectById(Long id) {
-        return modelMapper.map(projectRepository.findById(id).orElseThrow(), ProjectDTO.class);
+        return ProjectMapper.toDto(projectRepository.findById(id).orElseThrow());
     }
 
     @Override
@@ -54,9 +71,9 @@ public class ProjectServiceImpl extends BaseService implements ProjectService {
         }
         if (projectDTO.getCreatedById()!=null){
             User user = userRepository.findById(projectDTO.getCreatedById()).orElseThrow(() -> new EntityNotFoundException("UserId: ",projectDTO.getCreatedById()));
-            dbProject.setCreatedById(user);
+            dbProject.setCreatedBy(user);
         }
-        return modelMapper.map(dbProject, ProjectDTO.class);
+        return ProjectMapper.toDto(dbProject);
     }
 
     @Override

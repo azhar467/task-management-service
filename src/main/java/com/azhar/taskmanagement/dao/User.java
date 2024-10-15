@@ -10,6 +10,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -27,7 +28,7 @@ public class User {
     @Column(name = "name", length = 255)
     private String name;
 
-    @Column(name = "email",unique = true,length = 255,nullable = false)
+    @Column(name = "email", unique = true, length = 255, nullable = false)
     private String email;
 
     @Enumerated(EnumType.STRING)
@@ -41,15 +42,15 @@ public class User {
     @Column(nullable = false)
     private Gender gender;
 
+    @OneToMany(mappedBy = "createdBy", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private List<Project> projects = new ArrayList<>();
+
     @OneToMany(mappedBy = "assignee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @ToString.Exclude
-    private List<Task> tasks;
+    private List<Task> tasks = new ArrayList<>();
 
-    @OneToMany(mappedBy = "createdById", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @ToString.Exclude
-    private List<Project> projects;
-
-    @Column(name = "created_at",updatable = false)
+    @Column(name = "created_at", updatable = false)
     @CreationTimestamp(source = SourceType.DB)
     private LocalDateTime createdAt;
 
@@ -57,4 +58,9 @@ public class User {
     @UpdateTimestamp(source = SourceType.DB)
     private LocalDateTime updatedAt;
 
+    // Helper method to add project to user
+    public void addProject(Project project) {
+        this.projects.add(project);
+        project.setCreatedBy(this);
+    }
 }

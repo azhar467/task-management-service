@@ -1,5 +1,6 @@
 package com.azhar.taskmanagement.service.impl;
 
+import com.azhar.taskmanagement.mappers.UserMapper;
 import com.azhar.taskmanagement.dao.Project;
 import com.azhar.taskmanagement.dao.Task;
 import com.azhar.taskmanagement.dao.User;
@@ -15,41 +16,36 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 @Component
 @Slf4j
 public class UserServiceImpl extends BaseService implements UserService {
 
     @Override
-    public CompletableFuture<UserDTO> saveUser(UserDTO userdto){
-        User user = modelMapper.map(userdto,User.class);
-        if (userdto.getProjectIds()!=null){
-            user.setProjects(projectRepository.findAllById(userdto.getProjectIds()));
-        }
-        if (userdto.getTaskIds()!=null){
-            user.setTasks(taskRepository.findAllById(userdto.getTaskIds()));
-        }
+    public UserDTO saveUser(UserDTO userdto){
+        List<Project> projects = projectRepository.findAll();
+        List<Task> tasks = taskRepository.findAll();
+        User user = UserMapper.toEntity(userdto,projects,tasks);
         User savedUser = userRepository.save(user);
         log.info("Id of the saved user: {}", savedUser.getId());
-        return CompletableFuture.completedFuture(modelMapper.map(savedUser,UserDTO.class));
+        return UserMapper.toDto(savedUser);
     }
 
     @Override
-    public CompletableFuture<List<UserDTO>> getAllUsers() {
+    public List<UserDTO> getAllUsers() {
         List<User> users = userRepository.findAll();
         log.info("Total Number of Users: {}", users.size());
-        return CompletableFuture.completedFuture(users.stream().map(user -> modelMapper.map(user, UserDTO.class)).toList());
+        return users.stream().map(UserMapper::toDto).toList();
     }
 
     @Override
-    public CompletableFuture<UserDTO> getUserById(Long id) {
-        return CompletableFuture.completedFuture(modelMapper.map(userRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("User not found with id: ",id)),UserDTO.class));
+    public UserDTO getUserById(Long id) {
+        return UserMapper.toDto(userRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("User not found with id: ",id)));
     }
 
     @Override
-    public CompletableFuture<UserDTO> updateUser(Long id, UserDTO userDTO) {
+    public UserDTO updateUser(Long id, UserDTO userDTO) {
         User dbUser = userRepository.findById(id).orElseThrow(()-> new EntityNotFoundException(" UserId: ",id));
         dbUser.setName(userDTO.getName());
         dbUser.setUpdatedAt(LocalDateTime.now());
@@ -66,15 +62,14 @@ public class UserServiceImpl extends BaseService implements UserService {
         if (userDTO.getProjectIds()!=null && userDTO.getProjectIds().stream().findFirst().orElseThrow()>0){
             List<Project> projects = projectRepository.findAllById(userDTO.getProjectIds());
             for (Project project: projects){
-                project.setCreatedById(dbUser);
+                project.setCreatedBy(dbUser);
             }
         }
-        return CompletableFuture.completedFuture(modelMapper.map(userRepository.save(dbUser), UserDTO.class));
+        return UserMapper.toDto(userRepository.save(dbUser));
     }
 
     @Override
-    public CompletableFuture<Void> deleteUser(Long id){
+    public void deleteUser(Long id) {
         userRepository.deleteById(id);
-        return CompletableFuture.completedFuture(null);
     }
 }

@@ -1,5 +1,6 @@
 package com.azhar.taskmanagement.controller;
 
+import com.azhar.taskmanagement.mappers.TaskMapper;
 import com.azhar.taskmanagement.dao.dto.TaskDTO;
 import com.azhar.taskmanagement.service.BaseService;
 import com.azhar.taskmanagement.service.TaskService;
@@ -28,14 +29,14 @@ public class TaskController extends BaseService {
     @GetMapping({"/{id}",""})
     public ResponseEntity<List<TaskDTO>> getTasks(@PathVariable(required = false) @NonNull Long id){
         if (id!=null){
-            return new ResponseEntity<>(List.of(modelMapper.map(taskRepository.findById(id).orElseThrow(), TaskDTO.class)),HttpStatus.OK);
+            return new ResponseEntity<>(List.of(TaskMapper.toDto(taskRepository.findById(id).orElseThrow())),HttpStatus.OK);
         }
-        return new ResponseEntity<>(taskRepository.findById(id).stream().map(task -> modelMapper.map(task, TaskDTO.class)).toList(),HttpStatus.OK);
+        return new ResponseEntity<>(taskRepository.findById(id).stream().map(TaskMapper::toDto).toList(),HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<TaskDTO> updateTask(@PathVariable Long id, @RequestBody TaskDTO taskDTO){
-        return ResponseEntity.ok(modelMapper.map(taskService.updateTask(id, taskDTO), TaskDTO.class));
+        return ResponseEntity.ok(taskService.updateTask(id, taskDTO));
     }
 
     @DeleteMapping("/{id}")
