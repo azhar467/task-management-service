@@ -3,6 +3,7 @@ package com.azhar.taskmanagement.controller;
 import com.azhar.taskmanagement.service.BaseService;
 import com.azhar.taskmanagement.dao.dto.UserDTO;
 import com.azhar.taskmanagement.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,13 +15,15 @@ import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequestMapping("/api/users")
+@Slf4j
 public class UserController extends BaseService {
 
     @Autowired
     protected UserService userService;
 
     @PostMapping("/addUser")
-    public ResponseEntity<CompletableFuture<UserDTO>> addUser(@ParameterObject @RequestBody UserDTO userDTO){
+    public ResponseEntity<CompletableFuture<UserDTO>> saveUser(@ParameterObject @RequestBody UserDTO userDTO){
+        log.info("Invoked on Thread: {}", Thread.currentThread().getName());
         userDTO.setRole(userDTO.getRole().toUpperCase());
         userDTO.setGender(userDTO.getGender().toUpperCase());
         return new ResponseEntity<>(userService.saveUser(userDTO), HttpStatus.CREATED);
