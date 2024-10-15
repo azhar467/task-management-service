@@ -5,6 +5,8 @@ import com.azhar.taskmanagement.repository.RequestLogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 public class RequestLoggingService {
 
@@ -16,9 +18,10 @@ public class RequestLoggingService {
         RequestLog log = new RequestLog();
         log.setMethod(method);
         log.setEndpoint(uri);
-        log.setHeaders(headers); // Convert headers to JSON
-        log.setQueryParams(queryParams); // Convert query params to JSON
-        log.setRequestBody(requestBody); // Convert body to JSON
+        log.setHeaders(headers);
+        log.setQueryParams(queryParams);
+        log.setRequestBody(requestBody);
+        log.setTimestamp(LocalDateTime.now());
         requestLogRepository.save(log);
     }
 

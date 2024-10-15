@@ -1,7 +1,9 @@
 package com.azhar.taskmanagement.dao;
 
+import com.azhar.taskmanagement.requestlogging.JsonConverter;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.ColumnTransformer;
 
 import java.time.LocalDateTime;
 
@@ -19,12 +21,18 @@ public class RequestLog {
     private String endpoint;
 
     @Column(columnDefinition = "jsonb")
+    @ColumnTransformer(write = "?::jsonb")
+    @Convert(converter = JsonConverter.class)
     private String headers;
 
     @Column(columnDefinition = "jsonb")
+    @ColumnTransformer(write = "?::jsonb")
+    @Convert(converter = JsonConverter.class)
     private String queryParams;
 
     @Column(columnDefinition = "jsonb")
+    @ColumnTransformer(write = "?::jsonb")
+    @Convert(converter = JsonConverter.class)
     private String requestBody;
 
     private LocalDateTime timestamp;
