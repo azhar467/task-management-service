@@ -43,7 +43,14 @@ jobs:
       # Step 1: Checkout code (for SonarQube configuration)
       - uses: actions/checkout@v3
 
-      # Step 2: Install SonarQube Scanner
+      # Step 2: Set up JDK 17 for SonarScanner
+      - name: Set up JDK 17 for SonarScanner
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      # Step 3: Install SonarQube Scanner
       - name: Install SonarQube Scanner
         run: |
           # Download and install SonarQube Scanner
@@ -52,7 +59,11 @@ jobs:
           sudo mv sonar-scanner-4.8.0.2856-linux /opt/sonar-scanner
           export PATH=$PATH:/opt/sonar-scanner/bin
 
-      # Step 3: Run SonarQube Analysis with Coverage
+      # Step 4: Verify Java version
+      - name: Verify Java version
+        run: java -version
+
+      # Step 5: Run SonarQube Analysis with Coverage
       - name: Run SonarQube analysis
         run: |
           export PATH=$PATH:/opt/sonar-scanner/bin
