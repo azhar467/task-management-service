@@ -40,40 +40,27 @@ jobs:
     needs: build  # This job depends on the 'build' job
 
     steps:
-      # Step 1: Checkout code (for SonarQube configuration)
+      # Step 1: Checkout code (for SonarCloud configuration)
       - uses: actions/checkout@v3
 
-      # Step 2: Set up JDK 17 for SonarScanner
-      - name: Set up JDK 17 for SonarScanner
+      # Step 2: Set up JDK 17 for SonarCloud
+      - name: Set up JDK 17 for SonarCloud
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
           java-version: '17'
 
-      # Step 3: Install SonarQube Scanner
-      - name: Install SonarQube Scanner
-        run: |
-          # Download and install SonarQube Scanner
-          wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
-          unzip sonar-scanner-cli-4.8.0.2856-linux.zip
-          sudo mv sonar-scanner-4.8.0.2856-linux /opt/sonar-scanner
-          export PATH=$PATH:/opt/sonar-scanner/bin
-
-      # Step 4: Verify Java version
-      - name: Verify Java version
-        run: java -version
-
-      # Step 5: Run SonarQube Analysis with Coverage
-      - name: Run SonarQube analysis
-        run: |
-          export PATH=$PATH:/opt/sonar-scanner/bin
-          sonar-scanner \
-          -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} \
-          -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
-          -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
-          -Dsonar.java.binaries=target \
-          -Dsonar.junit.reportPaths=target/surefire-reports \
-          -Dsonar.jacoco.reportPaths=target/jacoco.exec
+      # Step 3: Run SonarCloud Analysis
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@master
+        with:
+          sonar-projectKey: ${{ secrets.SONAR_PROJECT_KEY }}
+          sonar-projectName: ${{ secrets.SONAR_PROJECT_NAME }}
+          sonar-projectVersion: '1.0'
+          sonar-login: ${{ secrets.SONAR_TOKEN }}
+          sonar-java.binaries: target
+          sonar.junit.reportPaths: target/surefire-reports
+          sonar.jacoco.reportPaths: target/jacoco.exec
 
   push_to_ecr:
     runs-on: ubuntu-latest
