@@ -57,9 +57,9 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           sonar-host-url: ${{ secrets.SONAR_HOST_URL }}
-          sonar-projectKey: ${{ secrets.SONAR_PROJECT_KEY }}
+          sonar-projectKey: ${{ secrets.SONAR_PROJECT_KEY }}  # Use the repo variable for project key
           sonar-organization: azhar467  # Use your actual organization name
-          sonar-projectName: ${{ secrets.SONAR_PROJECT_NAME }}
+          sonar-projectName: task-management-service  # Set the project name
           sonar-projectVersion: '1.0'
           sonar-java.binaries: target
           sonar.junit.reportPaths: target/surefire-reports
