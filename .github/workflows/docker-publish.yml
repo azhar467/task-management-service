@@ -1,4 +1,4 @@
-name: Build and Push Docker Image to ECR
+name: Build, Sonar Analysis with Coverage, and Push Docker Image to ECR
 
 on:
   push:
@@ -20,20 +20,47 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      # Step 3: Build with Maven
-      - name: Build with Maven
-        run: mvn clean package
+      # Step 3: Build with Maven and run tests with coverage
+      - name: Build with Maven and Run Tests
+        run: |
+          mvn clean verify \
+          -Pcoverage
 
       # Step 4: Verify the JAR exists
       - name: Verify JAR exists
         run: ls target/
 
-      # Step 5: Upload the JAR as an artifact to be used in the next job
+      # Step 5: Upload the JAR as an artifact to be used in the Sonar job
       - name: Upload JAR as artifact
         uses: actions/upload-artifact@v3
         with:
           name: task-management-service-jar
           path: target/task-management-service-0.0.1-SNAPSHOT.jar
+
+  sonar_analysis:
+    runs-on: ubuntu-latest
+    needs: build  # This job depends on the 'build' job
+
+    steps:
+      # Step 1: Checkout code (for SonarQube configuration)
+      - uses: actions/checkout@v3
+
+      # Step 2: Install SonarQube Scanner
+      - name: Install SonarQube Scanner
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y sonar-scanner
+
+      # Step 3: Run SonarQube Analysis with Coverage
+      - name: Run SonarQube analysis
+        run: |
+          sonar-scanner \
+          -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} \
+          -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
+          -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
+          -Dsonar.java.binaries=target \
+          -Dsonar.junit.reportPaths=target/surefire-reports \
+          -Dsonar.jacoco.reportPaths=target/jacoco.exec
 
   push_to_ecr:
     runs-on: ubuntu-latest
