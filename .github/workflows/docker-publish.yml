@@ -50,10 +50,18 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      # Step 3: Run SonarCloud Analysis
+      # Step 3: Echo parameters (do not print sensitive info)
+      - name: Echo Sonar Parameters
+        run: |
+          echo "Sonar Host URL: ${{ secrets.SONAR_HOST_URL }}"
+          echo "Sonar Project Key: ${{ secrets.SONAR_PROJECT_KEY }}"
+          echo "Sonar Organization: azhar467"  # Explicitly use your organization name
+          echo "Sonar Token:  ${{ secrets.SONAR_TOKEN }}"
+
+      # Step 4: Run SonarCloud Analysis
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@master
-        env:  # Set environment variables here
+        env: # Set environment variables here
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           sonar-host-url: ${{ secrets.SONAR_HOST_URL }}
@@ -64,6 +72,7 @@ jobs:
           sonar-java.binaries: target
           sonar.junit.reportPaths: target/surefire-reports
           sonar.jacoco.reportPaths: target/jacoco.exec
+
 
   push_to_ecr:
     runs-on: ubuntu-latest
