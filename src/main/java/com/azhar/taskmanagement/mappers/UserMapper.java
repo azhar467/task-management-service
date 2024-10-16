@@ -8,7 +8,6 @@ import com.azhar.taskmanagement.dao.enums.Gender;
 import com.azhar.taskmanagement.dao.enums.UserRole;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class UserMapper {
 
@@ -32,7 +31,7 @@ public class UserMapper {
             List<Long> projectIds = user.getProjects()
                     .stream()
                     .map(Project::getId) // Extract only the project IDs
-                    .collect(Collectors.toList());
+                    .toList();
             userDTO.setProjectIds(projectIds);
         }
 
@@ -41,7 +40,7 @@ public class UserMapper {
             List<Long> taskIds = user.getTasks()
                     .stream()
                     .map(Task::getId) // Assuming TaskMapper exists
-                    .collect(Collectors.toList());
+                    .toList();
             userDTO.setTaskIds(taskIds);
         }
 
@@ -65,7 +64,7 @@ public class UserMapper {
         if (userDTO.getProjectIds() != null && projects != null) {
             List<Project> matchingProjects = projects.stream()
                     .filter(project -> userDTO.getProjectIds().contains(project.getId()))
-                    .collect(Collectors.toList());
+                    .toList();
             user.setProjects(matchingProjects);
         }
 
@@ -73,7 +72,7 @@ public class UserMapper {
         if (userDTO.getTaskIds() != null && availableTasks != null) {
             List<Task> tasks = availableTasks.stream()
                     .filter(task -> userDTO.getTaskIds().contains(task.getId())) // Use getId() for Task ID
-                    .collect(Collectors.toList());
+                    .toList();
             user.setTasks(tasks);
         }
 

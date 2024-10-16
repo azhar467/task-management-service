@@ -6,7 +6,6 @@ import com.azhar.taskmanagement.dao.User;
 import com.azhar.taskmanagement.dao.dto.ProjectDTO;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ProjectMapper {
 
@@ -34,7 +33,7 @@ public class ProjectMapper {
             List<Long> taskIds = project.getTasks()
                     .stream()
                     .map(Task::getId) // Extract the task ID
-                    .collect(Collectors.toList());
+                    .toList();
             projectDTO.setTaskIds(taskIds); // Set the list of task IDs to the DTO
         }
 
@@ -66,7 +65,7 @@ public class ProjectMapper {
         if (projectDTO.getTaskIds() != null && availableTasks != null) {
             List<Task> tasks = availableTasks.stream()
                     .filter(task -> projectDTO.getTaskIds().contains(task.getId()))
-                    .collect(Collectors.toList());
+                    .toList();
             project.setTasks(tasks);  // Set the matching Task entities
         }
 

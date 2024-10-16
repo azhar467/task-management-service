@@ -13,6 +13,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TaskDTO {
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
+    private Long id;
     private String title;
     private String description;
     @Schema(anyOf = TaskStatus.class)
@@ -20,8 +22,10 @@ public class TaskDTO {
     @Schema(anyOf = TaskPriority.class)
     private String priority;  // Use TaskPriority Enum in String format
     private Long assigneeId;
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
     private String assigneeName;  // To show the assignee's name in the response
     private Long projectId;
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
     private String projectName;  // To show the project name in the response
     private LocalDateTime dueDate;
     private LocalDateTime createdAt;

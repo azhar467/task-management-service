@@ -15,7 +15,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDTO {
-
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
+    private Long id;
     private String name;
     @Schema(anyOf = Gender.class)
     private String gender;
