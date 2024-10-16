@@ -56,6 +56,7 @@ jobs:
         env: # Set environment variables here
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
+          sonar-host-url: ${{ secrets.SONAR_HOST_URL }}
           sonar-projectKey: ${{ secrets.SONAR_PROJECT_KEY }}
           sonar-projectName: ${{ secrets.SONAR_PROJECT_NAME }}
           sonar-projectVersion: '1.0'
