@@ -48,8 +48,11 @@ jobs:
       # Step 2: Install SonarQube Scanner
       - name: Install SonarQube Scanner
         run: |
-          sudo apt-get update
-          sudo apt-get install -y sonar-scanner
+          # Download and install SonarQube Scanner
+          wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
+          unzip sonar-scanner-cli-4.8.0.2856-linux.zip
+          sudo mv sonar-scanner-4.8.0.2856-linux /opt/sonar-scanner
+          echo 'export PATH=$PATH:/opt/sonar-scanner/bin' >> $GITHUB_ENV
 
       # Step 3: Run SonarQube Analysis with Coverage
       - name: Run SonarQube analysis
