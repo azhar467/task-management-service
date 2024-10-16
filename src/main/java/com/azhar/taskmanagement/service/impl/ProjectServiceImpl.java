@@ -54,7 +54,7 @@ public class ProjectServiceImpl extends BaseService implements ProjectService {
 
     @Override
     public ProjectDTO getProjectById(Long id) {
-        return ProjectMapper.toDto(projectRepository.findById(id).orElseThrow());
+        return ProjectMapper.toDto(projectRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Project with {} not found",id)));
     }
 
     @Override
@@ -73,7 +73,7 @@ public class ProjectServiceImpl extends BaseService implements ProjectService {
             User user = userRepository.findById(projectDTO.getCreatedById()).orElseThrow(() -> new EntityNotFoundException("UserId: ",projectDTO.getCreatedById()));
             dbProject.setCreatedBy(user);
         }
-        return ProjectMapper.toDto(dbProject);
+        return ProjectMapper.toDto(projectRepository.save(dbProject));
     }
 
     @Override

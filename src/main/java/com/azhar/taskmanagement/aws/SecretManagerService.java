@@ -1,5 +1,6 @@
 package com.azhar.taskmanagement.aws;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
@@ -15,9 +16,13 @@ public class SecretManagerService {
 
     private final SecretsManagerClient secretsManagerClient;
 
+    Dotenv dotenv = Dotenv.load();
+    String region = dotenv.get("AWS_REGION");
+
     public SecretManagerService() {
+        assert region != null;
         this.secretsManagerClient = SecretsManagerClient.builder()
-                .region(Region.AP_SOUTH_1) // Change to your region
+                .region(Region.of(region)) // Using Region from .env
                 .credentialsProvider(DefaultCredentialsProvider.create())
                 .build();
     }
