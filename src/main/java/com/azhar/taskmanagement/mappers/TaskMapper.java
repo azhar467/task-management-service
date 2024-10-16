@@ -9,6 +9,9 @@ import com.azhar.taskmanagement.dao.enums.TaskStatus;
 
 public class TaskMapper {
 
+    private TaskMapper(){
+        throw new IllegalStateException("Utility class");
+    }
     // Convert Task entity to TaskDTO
     public static TaskDTO toDto(Task task) {
         if (task == null) {

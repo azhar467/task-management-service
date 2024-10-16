@@ -1,5 +1,6 @@
 package com.azhar.taskmanagement.config.aop;
 
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
+@Slf4j
 public class LoggingAspect {
 
     @Pointcut("execution(* com.azhar.taskmanagement.controller..*(..))") // Adjust the package to match your controllers
@@ -19,7 +21,7 @@ public class LoggingAspect {
         String methodType = joinPoint.getSignature().getDeclaringTypeName();
         String threadName = Thread.currentThread().getName();
 
-        System.out.println("Invoked on Thread: " + threadName + 
+        log.info("Invoked on Thread: " + threadName +
                            ", Method Type: " + methodType + 
                            ", Method Name: " + methodName);
     }

@@ -9,6 +9,10 @@ import java.util.List;
 
 public class ProjectMapper {
 
+    private ProjectMapper(){
+        throw new IllegalStateException("Utility class");
+    }
+
     // Convert Project entity to ProjectDTO
     public static ProjectDTO toDto(Project project) {
         if (project == null) {

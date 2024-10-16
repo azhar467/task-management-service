@@ -20,9 +20,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.context.SpringBootTest;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,7 +59,7 @@ class ProjectServiceImplTest {
 
         ProjectDTO savedProjectDTO = projectService.saveProject(projectDTO);
 
-        verify(userRepository).findById(eq(1L));
+        verify(userRepository).findById(1L);
         verify(projectRepository).save(any(Project.class));
 
         assertNotNull(savedProjectDTO);
@@ -78,7 +76,7 @@ class ProjectServiceImplTest {
             projectService.saveProject(projectDTO);
         });
 
-        verify(userRepository).findById(eq(1L));
+        verify(userRepository).findById(1L);
         verify(projectRepository, never()).save(any(Project.class));
     }
 
@@ -100,7 +98,7 @@ class ProjectServiceImplTest {
 
         ProjectDTO projectDTO = projectService.getProjectById(1L);
 
-        verify(projectRepository).findById(eq(1L));
+        verify(projectRepository).findById(1L);
         assertNotNull(projectDTO);
     }
 
@@ -112,7 +110,7 @@ class ProjectServiceImplTest {
             projectService.getProjectById(1L);
         });
 
-        verify(projectRepository).findById(eq(1L));
+        verify(projectRepository).findById(1L);
     }
 
     @Test

@@ -7,7 +7,6 @@ import com.azhar.taskmanagement.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,7 +26,7 @@ public class TaskController extends BaseService {
     }
 
     @GetMapping({"/{id}",""})
-    public ResponseEntity<List<TaskDTO>> getTasks(@PathVariable(required = false) @NonNull Long id){
+    public ResponseEntity<List<TaskDTO>> getTasks(@PathVariable(required = false) Long id){
         if (id!=null){
             return new ResponseEntity<>(List.of(TaskMapper.toDto(taskRepository.findById(id).orElseThrow())),HttpStatus.OK);
         }
