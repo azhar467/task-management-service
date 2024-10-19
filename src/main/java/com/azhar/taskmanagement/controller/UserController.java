@@ -5,6 +5,8 @@ import com.azhar.taskmanagement.dao.dto.UserDTO;
 import com.azhar.taskmanagement.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +28,7 @@ public class UserController extends BaseService {
     }
 
     @PostMapping("/addUser")
-    @Operation(summary = "Create a new user", description = "Creates a new user in the system.")
+    @Operation(summary = "Create a new user", description = "Creates a new user in the system.",requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(required = true,content = @Content(schema = @Schema(implementation = UserDTO.class))))
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "User created successfully."),
             @ApiResponse(responseCode = "400", description = "Bad request - invalid input data.")})

@@ -57,7 +57,7 @@ public class TaskServiceImpl extends BaseService implements TaskService {
             dbTask.setProject(projectRepository.findByName(taskDTO.getProjectName()));
         }
         dbTask.setDueDate(taskDTO.getDueDate());
-        return TaskMapper.toDto(dbTask);
+        return TaskMapper.toDto(taskRepository.save(dbTask));
     }
 
     @Override
