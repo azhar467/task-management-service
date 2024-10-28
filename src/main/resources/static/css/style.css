@@ -1,0 +1,140 @@
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f4f9;
+    color: #333;
+    padding: 20px;
+}
+
+/* Container styling */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Header */
+h1, h2 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Form styling */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+input[type="text"], input[type="number"], input[type="email"], select {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 100%;
+}
+
+button {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Action buttons */
+.button {
+    padding: 8px 12px;
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 4px;
+}
+
+.button.add-user {
+    background-color: #007bff;
+    color: white;
+    display: inline-block;
+    margin-top: 15px;
+    text-align: center;
+}
+
+.button.add-user:hover {
+    background-color: #0056b3;
+}
+
+.button.delete {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.button.delete:hover {
+    background-color: #c0392b;
+}
+
+.button.cancel {
+    background-color: #888;
+    color: white;
+    text-align: center;
+}
+
+.button.cancel:hover {
+    background-color: #555;
+}
+
+/* Navigation */
+.nav-links {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.nav-links a {
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.nav-links a:hover {
+    text-decoration: underline;
+}

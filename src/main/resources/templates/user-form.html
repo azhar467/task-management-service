@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Form</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+<div class="container">
+    <h1 th:text="${user.id} != null ? 'Edit User' : 'Add New User'"></h1>
+
+    <form th:action="@{${user.id} != null ? '/users/update/' + ${user.id} : '/users/save'}" th:object="${user}" method="post">
+        <input type="hidden" th:field="*{id}" />
+
+        <label for="name">Name:</label>
+        <input type="text" id="name" th:field="*{name}" placeholder="Enter name" required />
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" th:field="*{email}" placeholder="Enter email" required />
+
+        <label for="gender">Gender:</label>
+        <select id="gender" th:field="*{gender}" required>
+            <option value="MALE" th:selected="${user.gender == 'MALE'}">Male</option>
+            <option value="FEMALE" th:selected="${user.gender == 'FEMALE'}">Female</option>
+        </select>
+
+        <label for="role">Role:</label>
+        <select id="role" th:field="*{role}" required>
+            <option value="USER" th:selected="${user.role == 'DEVELOPER'}">Developer</option>
+            <option value="ADMIN" th:selected="${user.role == 'ADMIN'}">Admin</option>
+            <option value="ADMIN" th:selected="${user.role == 'TESTER'}">Tester</option>
+        </select>
+
+        <button type="submit" th:text="${user.id} != null ? 'Update User' : 'Add User'"></button>
+        <a th:href="@{/users}" class="button cancel">Cancel</a>
+    </form>
+</div>
+</body>
+</html>

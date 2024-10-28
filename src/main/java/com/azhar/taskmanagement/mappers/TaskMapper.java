@@ -19,6 +19,7 @@ public class TaskMapper {
         }
 
         TaskDTO taskDTO = new TaskDTO();
+        taskDTO.setId(task.getId());
         taskDTO.setTitle(task.getTitle());
         taskDTO.setDescription(task.getDescription());
         taskDTO.setStatus(task.getStatus().name()); // Convert Enum to String

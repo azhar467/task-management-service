@@ -20,6 +20,7 @@ public class ProjectMapper {
         }
 
         ProjectDTO projectDTO = new ProjectDTO();
+        projectDTO.setId(project.getId());
         projectDTO.setName(project.getName());
         projectDTO.setDescription(project.getDescription());
         projectDTO.setStartDate(project.getStartDate());

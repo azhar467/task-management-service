@@ -21,6 +21,7 @@ public class UserMapper {
         }
 
         UserDTO userDTO = new UserDTO();
+        userDTO.setId(user.getId());
         userDTO.setName(user.getName());
         userDTO.setEmail(user.getEmail());
         userDTO.setRole(user.getRole().toString());
