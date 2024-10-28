@@ -6,32 +6,90 @@
 </head>
 <body>
 <div class="container">
-    <h1 th:text="${user.id} != null ? 'Edit User' : 'Add New User'"></h1>
+    <h1 th:text="${user.id != null ? 'Edit User' : 'Add User'}"></h1>
 
-    <form th:action="@{${user.id} != null ? '/users/update/' + ${user.id} : '/users/save'}" th:object="${user}" method="post">
-        <input type="hidden" th:field="*{id}" />
+    <!-- Navigation Links -->
+    <div class="nav-links">
+        <a th:href="@{/}">Home</a>
+        <a th:href="@{/users}">Users</a>
+        <a th:href="@{/projects}">Projects</a>
+        <a th:href="@{/tasks}">Tasks</a>
+    </div>
 
-        <label for="name">Name:</label>
-        <input type="text" id="name" th:field="*{name}" placeholder="Enter name" required />
+    <!-- User Form -->
+    <form th:action="${user.id != null ? '/users/update/' + user.id : '/users/save'}" th:object="${user}" method="post">
+        <!-- ID (read-only if editing) -->
+        <div th:if="${user.id != null}">
+            <label for="id">ID:</label>
+            <input type="text" id="id" name="id" th:value="${user.id}" readonly />
+        </div>
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" th:field="*{email}" placeholder="Enter email" required />
+        <!-- Name -->
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" th:field="*{name}" required />
+        </div>
 
-        <label for="gender">Gender:</label>
-        <select id="gender" th:field="*{gender}" required>
-            <option value="MALE" th:selected="${user.gender == 'MALE'}">Male</option>
-            <option value="FEMALE" th:selected="${user.gender == 'FEMALE'}">Female</option>
-        </select>
+        <!-- Gender -->
+        <div>
+            <label for="gender">Gender:</label>
+            <select id="gender" name="gender" th:field="*{gender}">
+                <option value="Male" th:selected="${user.gender == 'Male'}">Male</option>
+                <option value="Female" th:selected="${user.gender == 'Female'}">Female</option>
+                <option value="Other" th:selected="${user.gender == 'Other'}">Other</option>
+            </select>
+        </div>
 
-        <label for="role">Role:</label>
-        <select id="role" th:field="*{role}" required>
-            <option value="USER" th:selected="${user.role == 'DEVELOPER'}">Developer</option>
-            <option value="ADMIN" th:selected="${user.role == 'ADMIN'}">Admin</option>
-            <option value="ADMIN" th:selected="${user.role == 'TESTER'}">Tester</option>
-        </select>
+        <!-- Date of Birth -->
+        <div>
+            <label for="dateOfBirth">Date of Birth:</label>
+            <input type="date" id="dateOfBirth" name="dateOfBirth" th:field="*{dateOfBirth}" required />
+        </div>
 
-        <button type="submit" th:text="${user.id} != null ? 'Update User' : 'Add User'"></button>
-        <a th:href="@{/users}" class="button cancel">Cancel</a>
+        <!-- Email -->
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" th:field="*{email}" required />
+        </div>
+
+        <!-- Role -->
+        <div>
+            <label for="role">Role:</label>
+            <select id="role" name="role" th:field="*{role}">
+                <option value="Admin" th:selected="${user.role == 'Admin'}">Admin</option>
+                <option value="DEVELOPER" th:selected="${user.role == 'DEVELOPER'}">DEVELOPER</option>
+                <option value="TESTER" th:selected="${user.role == 'TESTER'}">TESTER</option>
+            </select>
+        </div>
+
+        <!-- Created At (read-only) -->
+        <div>
+            <label for="createdAt">Created At:</label>
+            <input type="text" id="createdAt" name="createdAt" th:field="*{createdAt}" readonly />
+        </div>
+
+        <!-- Updated At (read-only) -->
+        <div>
+            <label for="updatedAt">Updated At:</label>
+            <input type="text" id="updatedAt" name="updatedAt" th:field="*{updatedAt}" readonly />
+        </div>
+
+        <!-- Task IDs -->
+        <div>
+            <label for="taskIds">Task IDs:</label>
+            <input type="text" id="taskIds" name="taskIds" th:field="*{taskIds}" placeholder="Comma-separated IDs" />
+        </div>
+
+        <!-- Project IDs -->
+        <div>
+            <label for="projectIds">Project IDs:</label>
+            <input type="text" id="projectIds" name="projectIds" th:field="*{projectIds}" placeholder="Comma-separated IDs" />
+        </div>
+
+        <!-- Submit Button -->
+        <div>
+            <button type="submit" class="button">Save User</button>
+        </div>
     </form>
 </div>
 </body>

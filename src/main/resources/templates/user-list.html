@@ -6,8 +6,22 @@
 </head>
 <body>
 <div class="container">
-    <h1>User List</h1>
+    <h1>User Management</h1>
 
+    <!-- Navigation Links -->
+    <div class="nav-links">
+        <a th:href="@{/}">Home</a>
+        <a th:href="@{/users}">Users</a>
+        <a th:href="@{/projects}">Projects</a>
+        <a th:href="@{/tasks}">Tasks</a>
+    </div>
+
+    <!-- Add User Button -->
+    <div class="button-container">
+        <a th:href="@{/users/new}" class="button">Add User</a>
+    </div>
+
+    <!-- User Table -->
     <table>
         <thead>
         <tr>
@@ -15,26 +29,34 @@
             <th>Name</th>
             <th>Email</th>
             <th>Gender</th>
+            <th>Date of Birth</th>
             <th>Role</th>
+            <th>Created At</th>
+            <th>Updated At</th>
+            <th>Task IDs</th>
+            <th>Project IDs</th>
             <th>Actions</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="user : ${users}">
-            <td th:text="${user.id}">ID</td>
-            <td th:text="${user.name}">Name</td>
-            <td th:text="${user.email}">Email</td>
-            <td th:text="${user.gender}">Gender</td>
-            <td th:text="${user.role}">Role</td>
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.name}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.gender}"></td>
+            <td th:text="${user.dateOfBirth}"></td>
+            <td th:text="${user.role}"></td>
+            <td th:text="${#temporals.formatISO(user.createdAt)}"></td>
+            <td th:text="${#temporals.formatISO(user.updatedAt)}"></td>
+            <td th:text="${user.taskIds}"></td>
+            <td th:text="${user.projectIds}"></td>
             <td>
-                <a th:href="@{'/users/edit/' + ${user.id}}" class="button">Edit</a>
-                <a th:href="@{'/users/delete/' + ${user.id}}" onclick="return confirm('Are you sure?')" class="button delete">Delete</a>
+                <a th:href="@{|/users/edit/${user.id}|}" class="button">Edit</a>
+                <a th:href="@{|/users/delete/${user.id}|}" class="button delete">Delete</a>
             </td>
         </tr>
         </tbody>
     </table>
-
-    <a th:href="@{/users/new}" class="button add-user">Add New User</a>
 </div>
 </body>
 </html>

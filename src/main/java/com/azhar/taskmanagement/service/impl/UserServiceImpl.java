@@ -50,16 +50,16 @@ public class UserServiceImpl extends BaseService implements UserService {
         dbUser.setName(userDTO.getName());
         dbUser.setUpdatedAt(LocalDateTime.now());
         dbUser.setEmail(userDTO.getEmail());
-        dbUser.setRole(UserRole.valueOf(userDTO.getRole()));
-        dbUser.setGender(Gender.valueOf(userDTO.getGender()));
+        dbUser.setRole(UserRole.valueOf(userDTO.getRole().toUpperCase()));
+        dbUser.setGender(Gender.valueOf(userDTO.getGender().toUpperCase()));
         dbUser.setDateOfBirth(userDTO.getDateOfBirth());
-        if (userDTO.getTaskIds()!=null && userDTO.getTaskIds().stream().findFirst().orElseThrow()>0){
+        if (!userDTO.getTaskIds().isEmpty() && userDTO.getTaskIds().stream().findFirst().orElseThrow()>0){
             List<Task> tasks = taskRepository.findAllById(userDTO.getTaskIds());
             for (Task task:tasks){
                 task.setAssignee(dbUser);
             }
         }
-        if (userDTO.getProjectIds()!=null && userDTO.getProjectIds().stream().findFirst().orElseThrow()>0){
+        if (!userDTO.getProjectIds().isEmpty() && userDTO.getProjectIds().stream().findFirst().orElseThrow()>0){
             List<Project> projects = projectRepository.findAllById(userDTO.getProjectIds());
             for (Project project: projects){
                 project.setCreatedBy(dbUser);
