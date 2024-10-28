@@ -1,8 +1,8 @@
-{
+/* Reset default margin and padding */
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
 }
 
 body {
@@ -13,7 +13,7 @@ body {
 
 /* Container styling */
 .container {
-    max-width: 800px;
+    max-width: 1200px; /* Increased width for better layout */
     margin: 0 auto;
     background-color: #ffffff;
     padding: 20px;
@@ -34,19 +34,27 @@ table {
     margin-top: 20px;
 }
 
+/* Table header */
 th, td {
     padding: 12px;
     border-bottom: 1px solid #ddd;
-    text-align: left;
+    text-align: left; /* Align text to the left for readability */
 }
 
+/* Header background and text color */
 th {
     background-color: #4CAF50;
     color: white;
 }
 
+/* Alternate row color for better readability */
+tr:nth-child(even) {
+    background-color: #f9f9f9; /* Light grey for even rows */
+}
+
+/* Hover effect for rows */
 tr:hover {
-    background-color: #f1f1f1;
+    background-color: #f1f1f1; /* Highlight on hover */
 }
 
 /* Form styling */
@@ -62,13 +70,18 @@ label {
     margin-bottom: 4px;
 }
 
-input[type="text"], input[type="number"], input[type="email"], select {
+/* Input styling */
+input[type="text"],
+input[type="number"],
+input[type="email"],
+select {
     padding: 8px;
     border: 1px solid #ddd;
     border-radius: 4px;
     width: 100%;
 }
 
+/* Button styling */
 button {
     padding: 10px;
     background-color: #4CAF50;
@@ -89,12 +102,13 @@ button:hover {
     text-decoration: none;
     font-size: 14px;
     border-radius: 4px;
+    display: inline-block; /* Ensure buttons are inline-block for proper padding */
 }
 
+/* Add User button */
 .button.add-user {
     background-color: #007bff;
     color: white;
-    display: inline-block;
     margin-top: 15px;
     text-align: center;
 }
@@ -103,6 +117,7 @@ button:hover {
     background-color: #0056b3;
 }
 
+/* Delete button */
 .button.delete {
     background-color: #e74c3c;
     color: white;
@@ -112,6 +127,7 @@ button:hover {
     background-color: #c0392b;
 }
 
+/* Cancel button */
 .button.cancel {
     background-color: #888;
     color: white;
@@ -122,7 +138,7 @@ button:hover {
     background-color: #555;
 }
 
-/* Navigation */
+/* Navigation links */
 .nav-links {
     display: flex;
     gap: 15px;
