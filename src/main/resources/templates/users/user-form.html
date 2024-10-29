@@ -17,7 +17,7 @@
     </div>
 
     <!-- User Form -->
-    <form th:action="${user.id != null ? '/users/update/' + user.id : '/users/save'}" th:object="${user}" method="post">
+    <form th:action="${user.id != null ? '/task-management-service/users/update/' + user.id : '/task-management-service/users/save'}" th:object="${user}" method="post">
         <!-- ID (read-only if editing) -->
         <div th:if="${user.id != null}">
             <label for="id">ID:</label>
@@ -91,6 +91,7 @@
             <button type="submit" class="button">Save User</button>
         </div>
     </form>
+    <a th:href="@{/users}" class="button">Back to User List</a>
 </div>
 </body>
 </html>

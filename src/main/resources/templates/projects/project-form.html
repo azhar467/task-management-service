@@ -16,13 +16,13 @@
         <a th:href="@{/tasks}">Tasks</a>
     </div>
 
-    <form th:action="${project.id != null ? '/projects/update/' + project.id : '/projects/save'}" th:object="${project}" method="post">
+    <form th:action="${project.id != null ? '/task-management-service/projects/update/' + project.id : '/task-management-service/projects/save'}" th:object="${project}" method="post">
         <div>
             <label for="name">Name:</label>
             <input type="text" id="name" th:field="*{name}" required />
         </div>
 
-        <div>
+        <div class="description-container">
             <label for="description">Description:</label>
             <textarea id="description" th:field="*{description}" required></textarea>
         </div>

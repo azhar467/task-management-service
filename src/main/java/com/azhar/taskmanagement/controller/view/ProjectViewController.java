@@ -18,19 +18,19 @@ public class ProjectViewController {
     @GetMapping
     public String listProjects(Model model) {
         model.addAttribute("projects", projectService.getAllProjects());
-        return "project-list";
+        return "projects/project-list";
     }
 
     @GetMapping("/{id}")
     public String viewProject(@PathVariable Long id, Model model) {
         model.addAttribute("project", projectService.getProjectById(id));
-        return "project-detail";
+        return "projects/project-detail";
     }
 
     @GetMapping("/new")
     public String showProjectForm(Model model) {
         model.addAttribute("project", new ProjectDTO());
-        return "project-form";
+        return "projects/project-form";
     }
 
     @PostMapping("/save")
@@ -42,7 +42,7 @@ public class ProjectViewController {
     @GetMapping("/edit/{id}")
     public String editProject(@PathVariable Long id, Model model) {
         model.addAttribute("project", projectService.getProjectById(id));
-        return "project-form"; // Reuse the form for editing
+        return "projects/project-form"; // Reuse the form for editing
     }
 
     @PostMapping("/update/{id}")

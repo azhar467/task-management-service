@@ -18,19 +18,19 @@ public class UserViewController {
     @GetMapping
     public String listUsers(Model model) {
         model.addAttribute("users", userService.getAllUsers());
-        return "user-list";
+        return "users/user-list";
     }
 
     @GetMapping("/{id}")
     public String viewUser(@PathVariable Long id, Model model) {
         model.addAttribute("user", userService.getUserById(id));
-        return "user-detail";
+        return "users/user-detail";
     }
 
     @GetMapping("/new")
     public String showUserForm(Model model) {
         model.addAttribute("user", new UserDTO());
-        return "user-form";
+        return "users/user-form";
     }
 
     @PostMapping("/save")
@@ -42,7 +42,7 @@ public class UserViewController {
     @GetMapping("/edit/{id}")
     public String editUser(@PathVariable Long id, Model model) {
         model.addAttribute("user", userService.getUserById(id));
-        return "user-form"; // Reuse the user form for editing
+        return "users/user-form"; // Reuse the user form for editing
     }
 
     @PostMapping("/update/{id}")
