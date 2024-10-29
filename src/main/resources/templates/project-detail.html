@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Project Detail</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+<div class="container">
+    <h1>Project Detail</h1>
+
+    <!-- Navigation Links -->
+    <div class="nav-links">
+        <a th:href="@{/}">Home</a>
+        <a th:href="@{/users}">Users</a>
+        <a th:href="@{/projects}">Projects</a>
+        <a th:href="@{/tasks}">Tasks</a>
+    </div>
+
+    <div class="details">
+        <p><strong>ID:</strong> <span th:text="${project.id}">1</span></p>
+        <p><strong>Name:</strong> <span th:text="${project.name}">Project Name</span></p>
+        <p><strong>Description:</strong> <span th:text="${project.description}">Project Description</span></p>
+        <p><strong>Start Date:</strong> <span th:text="${project.startDate}">Start Date</span></p>
+        <p><strong>End Date:</strong> <span th:text="${project.endDate}">End Date</span></p>
+        <p><strong>Created At:</strong> <span th:text="${project.createdAt}">Created At</span></p>
+        <p><strong>Updated At:</strong> <span th:text="${project.updatedAt}">Updated At</span></p>
+    </div>
+
+    <a th:href="@{/projects}" class="button">Back to Project List</a>
+</div>
+</body>
+</html>

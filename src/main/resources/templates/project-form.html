@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Project Form</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+<div class="container">
+    <h1 th:text="${project.id != null ? 'Edit Project' : 'Add New Project'}"></h1>
+
+    <!-- Navigation Links -->
+    <div class="nav-links">
+        <a th:href="@{/}">Home</a>
+        <a th:href="@{/users}">Users</a>
+        <a th:href="@{/projects}">Projects</a>
+        <a th:href="@{/tasks}">Tasks</a>
+    </div>
+
+    <form th:action="${project.id != null ? '/projects/update/' + project.id : '/projects/save'}" th:object="${project}" method="post">
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" th:field="*{name}" required />
+        </div>
+
+        <div>
+            <label for="description">Description:</label>
+            <textarea id="description" th:field="*{description}" required></textarea>
+        </div>
+
+        <div>
+            <label for="startDate">Start Date:</label>
+            <input type="date" id="startDate" th:field="*{startDate}" required />
+        </div>
+
+        <div>
+            <label for="endDate">End Date:</label>
+            <input type="date" id="endDate" th:field="*{endDate}" required />
+        </div>
+
+        <button type="submit" class="button" th:text="${project.id != null ? 'Update Project' : 'Save Project'}"></button>
+    </form>
+
+    <a th:href="@{/projects}" class="button">Back to Project List</a>
+</div>
+</body>
+</html>

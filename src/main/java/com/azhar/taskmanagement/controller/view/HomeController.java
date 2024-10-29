@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class HomeController {
 
-    @GetMapping("/task-management-service")
+    @GetMapping("/")
     public String home() {
         return "home"; // This will map to home.html
     }
