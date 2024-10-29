@@ -2,14 +2,70 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <title>User Details</title>
-    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
 <body>
+<div class="container">
     <h1>User Details</h1>
-    <p><strong>ID:</strong> <span th:text="${user.id}">1</span></p>
-    <p><strong>Name:</strong> <span th:text="${user.name}">User Name</span></p>
-    <p><strong>Role:</strong> <span th:text="${user.role}">Role</span></p>
-    <p><strong>Gender:</strong> <span th:text="${user.gender}">Gender</span></p>
-    <a href="/users">Back to List</a>
+
+    <!-- Navigation Links -->
+    <div class="nav-links">
+        <a th:href="@{/}">Home</a>
+        <a th:href="@{/users}">Users</a>
+        <a th:href="@{/projects}">Projects</a>
+        <a th:href="@{/tasks}">Tasks</a>
+    </div>
+
+    <!-- User Details Table -->
+    <table class="details-table">
+        <tbody>
+        <tr>
+            <th>ID</th>
+            <td th:text="${user.id}"></td>
+        </tr>
+        <tr>
+            <th>Name</th>
+            <td th:text="${user.name}"></td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td th:text="${user.email}"></td>
+        </tr>
+        <tr>
+            <th>Gender</th>
+            <td th:text="${user.gender}"></td>
+        </tr>
+        <tr>
+            <th>Date of Birth</th>
+            <td th:text="${user.dateOfBirth}"></td>
+        </tr>
+        <tr>
+            <th>Role</th>
+            <td th:text="${user.role}"></td>
+        </tr>
+        <tr>
+            <th>Created At</th>
+            <td th:text="${#temporals.formatISO(user.createdAt)}"></td>
+        </tr>
+        <tr>
+            <th>Updated At</th>
+            <td th:text="${#temporals.formatISO(user.updatedAt)}"></td>
+        </tr>
+        <tr>
+            <th>Task IDs</th>
+            <td th:text="${user.taskIds}"></td>
+        </tr>
+        <tr>
+            <th>Project IDs</th>
+            <td th:text="${user.projectIds}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Back Button -->
+    <div class="button-container">
+        <a th:href="@{/users}" class="button">Back to User List</a>
+    </div>
+</div>
 </body>
 </html>

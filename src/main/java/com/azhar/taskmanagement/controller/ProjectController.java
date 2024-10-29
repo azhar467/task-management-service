@@ -15,7 +15,11 @@ import java.util.List;
 public class ProjectController extends BaseService {
 
     @Autowired
-    protected ProjectService projectService;
+    protected final ProjectService projectService;
+
+    public ProjectController(ProjectService projectService) {
+        this.projectService = projectService;
+    }
 
     @PostMapping("/addProject")
     public ResponseEntity<ProjectDTO> addProject(@RequestBody ProjectDTO projectDTO){

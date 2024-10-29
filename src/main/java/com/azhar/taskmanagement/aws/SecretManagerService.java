@@ -40,7 +40,7 @@ public class SecretManagerService {
             ObjectMapper objectMapper = new ObjectMapper();
             return objectMapper.readValue(secretString, Map.class);
         } catch (Exception e) {
-            throw new RuntimeException("Error parsing secret string", e);
+            throw new IllegalArgumentException("Error parsing secret string", e);
         }
     }
 }

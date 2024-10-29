@@ -15,14 +15,16 @@ import java.util.Map;
 public class DataSourceConfig {
 
     @Autowired
-    private SecretManagerService secretManagerService;
+    private final SecretManagerService secretManagerService;
 
     @Autowired
-    private DataSourceProperties dataSourceProperties;
+    private final DataSourceProperties dataSourceProperties;
 
     private final String databaseSecretName;
 
-    public DataSourceConfig() {
+    public DataSourceConfig(SecretManagerService secretManagerService, DataSourceProperties dataSourceProperties) {
+        this.secretManagerService = secretManagerService;
+        this.dataSourceProperties = dataSourceProperties;
         Dotenv dotenv = Dotenv.load();
         this.databaseSecretName = dotenv.get("DATABASE_SECRET_NAME");
     }
