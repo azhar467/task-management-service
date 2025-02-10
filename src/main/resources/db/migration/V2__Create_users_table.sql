@@ -9,15 +9,3 @@ CREATE TABLE IF NOT EXISTS task_management_service_schema.users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Timestamp for when the row is created
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP  -- Timestamp for when the row is updated
 );
-
--- Create index on email for faster search queries
-CREATE INDEX idx_users_email ON task_management_service_schema.users(email);
-
--- Create index on date_of_birth for performance optimization when filtering by birth date
-CREATE INDEX idx_users_date_of_birth ON task_management_service_schema.users(date_of_birth);
-
--- Create index on role for filtering users by their role
-CREATE INDEX idx_users_role ON task_management_service_schema.users(role);
-
--- Create index on gender for better performance when filtering by gender
-CREATE INDEX idx_users_gender ON task_management_service_schema.users(gender);
