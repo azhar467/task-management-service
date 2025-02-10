@@ -1,5 +1,6 @@
 package com.azhar.taskmanagement.controller;
 
+import com.azhar.taskmanagement.exception.TaskNotFoundException;
 import com.azhar.taskmanagement.mappers.TaskMapper;
 import com.azhar.taskmanagement.dao.dto.TaskDTO;
 import com.azhar.taskmanagement.service.BaseService;
@@ -33,7 +34,7 @@ public class TaskController extends BaseService {
     @GetMapping({"/{id}",""})
     public ResponseEntity<List<TaskDTO>> getTasks(@PathVariable(required = false) Long id){
         if (id!=null){
-            return new ResponseEntity<>(List.of(TaskMapper.toDto(taskRepository.findById(id).orElseThrow())),HttpStatus.OK);
+            return new ResponseEntity<>(List.of(TaskMapper.toDto(taskRepository.findById(id).orElseThrow(()->new TaskNotFoundException(id)))),HttpStatus.OK);
         }
         return new ResponseEntity<>(taskRepository.findById(id).stream().map(TaskMapper::toDto).toList(),HttpStatus.OK);
     }

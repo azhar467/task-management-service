@@ -11,9 +11,8 @@ import java.time.LocalDateTime;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleUserNotFoundException(EntityNotFoundException ex){
-        ErrorResponse errorResponse = new ErrorResponse(LocalDateTime.now(),ex.getMessage(),"The requested entity was not found in the system"
-        );
+    public ResponseEntity<ErrorResponse> handleNotFoundException(EntityNotFoundException ex){
+        ErrorResponse errorResponse = new ErrorResponse(LocalDateTime.now(),ex.getMessage(),"The requested entity was not found in the system");
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
