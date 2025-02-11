@@ -8,6 +8,7 @@ on:
 
 jobs:
   push_to_ecr:
+    if: github.actor != 'local-profile'  # Exclude local profile
     runs-on: ubuntu-latest
 
     steps:
