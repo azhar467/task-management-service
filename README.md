@@ -1,6 +1,7 @@
 # Task Management Service
 
 This project is a microservice for managing tasks and users. It includes entities for tasks, users, and departments. The project is built using Java, Spring Boot, H2 (or MySQL) for the database, and includes Docker and Kubernetes integration for containerization and orchestration.
+(URL to run locally: http://localhost:8080/task-management-service/swagger-ui.html)
 
 ## Table of Contents
 - [Getting Started](#getting-started)
