@@ -25,8 +25,8 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      # Step 3: Cache SonarQube packages
-      - name: Cache SonarQube packages
+      # Step 3: Cache SonarQube
+      - name: Cache SonarCloud packages
         uses: actions/cache@v4
         with:
           path: ~/.sonar/cache
@@ -49,8 +49,12 @@ jobs:
       - name: SonarQube Analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
-          -Dsonar.projectKey=azhar467_task-management-service
+        run: |
+          mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+            -Dsonar.projectKey=azhar467_task-management-service \
+            -Dsonar.organization=azhar467 \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 
       # Step 7: Verify the JAR exists
       - name: Verify JAR exists
