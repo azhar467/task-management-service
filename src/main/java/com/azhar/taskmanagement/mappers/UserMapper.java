@@ -11,7 +11,7 @@ import java.util.List;
 
 public class UserMapper {
 
-    private UserMapper(){
+    UserMapper(){
         throw new IllegalStateException("Utility class");
     }
     // Convert User entity to UserDTO

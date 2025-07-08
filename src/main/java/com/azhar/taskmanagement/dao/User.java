@@ -22,7 +22,7 @@ import java.util.List;
 @Table(name = "users", schema = "task_management_service_schema")
 public class User {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Setter(AccessLevel.NONE)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "name", length = 255)

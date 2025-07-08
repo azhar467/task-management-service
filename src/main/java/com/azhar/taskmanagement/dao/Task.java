@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @Table(name = "tasks", schema = "task_management_service_schema")
 public class Task {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Setter(AccessLevel.NONE)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "title", nullable = false, length=200)

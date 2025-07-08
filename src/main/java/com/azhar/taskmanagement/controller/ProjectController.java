@@ -14,9 +14,9 @@ import java.util.List;
 @RequestMapping("/api/projects")
 public class ProjectController extends BaseService {
 
-    @Autowired
     protected final ProjectService projectService;
 
+    @Autowired
     public ProjectController(ProjectService projectService) {
         this.projectService = projectService;
     }

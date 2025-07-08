@@ -2,6 +2,7 @@ package com.azhar.taskmanagement.controller.view;
 
 import com.azhar.taskmanagement.dao.dto.ProjectDTO;
 import com.azhar.taskmanagement.service.ProjectService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 public class ProjectViewController {
     private final ProjectService projectService;
 
+    @Autowired
     public ProjectViewController(ProjectService projectService) {
         this.projectService = projectService;
     }
