@@ -43,7 +43,7 @@ jobs:
 
       # Step 5: Build with Maven (with coverage profile)
       - name: Build with Maven
-        run: mvn clean install -Pcoverage
+        run: mvn clean verify -Pcoverage
 
       # Step 6: SonarQube analysis
       - name: SonarQube Analysis
