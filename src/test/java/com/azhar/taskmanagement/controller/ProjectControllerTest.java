@@ -1,12 +1,14 @@
 package com.azhar.taskmanagement.controller;
 
 import com.azhar.taskmanagement.dao.dto.ProjectDTO;
+import com.azhar.taskmanagement.repository.ProjectRepository;
+import com.azhar.taskmanagement.repository.TaskRepository;
+import com.azhar.taskmanagement.repository.UserRepository;
 import com.azhar.taskmanagement.service.ProjectService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
@@ -22,8 +24,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@SpringBootTest
-@AutoConfigureMockMvc
+@WebMvcTest(ProjectController.class)
 @ActiveProfiles("local")
 class ProjectControllerTest {
 
@@ -32,6 +33,15 @@ class ProjectControllerTest {
 
     @MockBean
     private ProjectService projectService;
+
+    @MockBean
+    private ProjectRepository projectRepository;
+
+    @MockBean
+    private TaskRepository taskRepository;
+
+    @MockBean
+    private UserRepository userRepository;
 
     @Autowired
     private ObjectMapper objectMapper;
