@@ -74,7 +74,7 @@
             <td>
                 <a th:href="@{/users/{id}(id=${user.id})}" class="button">View</a>
                 <a th:href="@{/users/edit/{id}(id=${user.id})}" class="button">Edit</a>
-                <a th:href="@{/users/delete/{id}(id=${user.id})}" th:onclick="'return confirmDelete(\'' + ${user.name} + '\');'" class="button delete">Delete</a>
+                <a th:href="@{/users/delete/{id}(id=${user.id})}" th:data-name="${user.name}" onclick="return confirmDelete(this.dataset.name);" class="button delete">Delete</a>
             </td>
         </tr>
         </tbody>
