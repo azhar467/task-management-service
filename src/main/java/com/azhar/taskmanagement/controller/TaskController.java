@@ -36,7 +36,7 @@ public class TaskController extends BaseService {
         if (id!=null){
             return new ResponseEntity<>(List.of(TaskMapper.toDto(taskRepository.findById(id).orElseThrow(()->new TaskNotFoundException(id)))),HttpStatus.OK);
         }
-        return new ResponseEntity<>(taskRepository.findById(id).stream().map(TaskMapper::toDto).toList(),HttpStatus.OK);
+        return new ResponseEntity<>(taskRepository.findAll().stream().map(TaskMapper::toDto).toList(),HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
