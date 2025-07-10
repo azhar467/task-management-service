@@ -97,6 +97,10 @@
       <artifactId>thymeleaf-extras-java8time</artifactId>
       <version>3.0.4.RELEASE</version>
     </dependency>
+    <dependency>
+      <groupId>io.micrometer</groupId>
+      <artifactId>micrometer-registry-prometheus</artifactId>
+    </dependency>
   </dependencies>
 
   <dependencyManagement>
