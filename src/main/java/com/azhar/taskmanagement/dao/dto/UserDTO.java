@@ -29,5 +29,7 @@ public class UserDTO {
     private LocalDateTime updatedAt = LocalDateTime.now();
     private List<Long> taskIds;  // List of Task IDs assigned to the user
     private List<Long> projectIds;  // List of Project IDs created by the user
+    private List<String> taskNames;  // List of Task names assigned to the user
+    private List<String> projectNames;  // List of Project names created by the user
 
 }

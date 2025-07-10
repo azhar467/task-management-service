@@ -52,12 +52,22 @@
             <td th:text="${#temporals.formatISO(user.updatedAt)}"></td>
         </tr>
         <tr>
-            <th>Task IDs</th>
-            <td th:text="${user.taskIds}"></td>
+            <th>Tasks</th>
+            <td>
+                <ul th:if="${user.taskNames != null and !user.taskNames.isEmpty()}">
+                    <li th:each="taskName : ${user.taskNames}" th:text="${taskName}"></li>
+                </ul>
+                <span th:if="${user.taskNames == null or user.taskNames.isEmpty()}">No tasks assigned</span>
+            </td>
         </tr>
         <tr>
-            <th>Project IDs</th>
-            <td th:text="${user.projectIds}"></td>
+            <th>Projects</th>
+            <td>
+                <ul th:if="${user.projectNames != null and !user.projectNames.isEmpty()}">
+                    <li th:each="projectName : ${user.projectNames}" th:text="${projectName}"></li>
+                </ul>
+                <span th:if="${user.projectNames == null or user.projectNames.isEmpty()}">No projects created</span>
+            </td>
         </tr>
         </tbody>
     </table>

@@ -5,6 +5,30 @@
     <link rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
 <body>
+    <script>
+        function confirmDelete(name) {
+            return confirm('Are you sure you want to delete ' + name + '?');
+        }
+        
+        function searchTable() {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toLowerCase();
+            const table = document.querySelector('table');
+            const rows = table.getElementsByTagName('tr');
+            
+            for (let i = 1; i < rows.length; i++) {
+                const cells = rows[i].getElementsByTagName('td');
+                let found = false;
+                for (let j = 0; j < cells.length; j++) {
+                    if (cells[j].textContent.toLowerCase().includes(filter)) {
+                        found = true;
+                        break;
+                    }
+                }
+                rows[i].style.display = found ? '' : 'none';
+            }
+        }
+    </script>
 <div class="container">
     <h1>Project List</h1>
 
@@ -17,6 +41,11 @@
     </div>
 
     <a th:href="@{/projects/new}" class="button">Add New Project</a>
+    
+    <!-- Search Box -->
+    <div style="margin: 20px 0;">
+        <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Search projects..." style="padding: 8px; width: 300px; border: 1px solid #ddd; border-radius: 4px;">
+    </div>
 
     <table class="table" border="1">
         <thead>
@@ -39,7 +68,7 @@
             <td>
                 <a th:href="@{/projects/{id}(id=${project.id})}" class="button">View</a>
                 <a th:href="@{/projects/edit/{id}(id=${project.id})}" class="button">Edit</a>
-                <a th:href="@{/projects/delete/{id}(id=${project.id})}" onclick="return confirm('Are you sure?');" class="button">Delete</a>
+                <a th:href="@{/projects/delete/{id}(id=${project.id})}" th:onclick="'return confirmDelete(\'' + ${project.name} + '\');'" class="button">Delete</a>
             </td>
         </tr>
         </tbody>

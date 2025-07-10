@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Task Form</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="container">
+        <h1>Task Form</h1>
+        
+        <form th:action="@{/tasks/save}" th:object="${task}" method="post">
+            <input type="hidden" th:field="*{id}">
+            
+            <div class="form-group">
+                <label for="title">Title:</label>
+                <input type="text" th:field="*{title}" required>
+            </div>
+            
+            <div class="description-container">
+                <label for="description">Description:</label>
+                <textarea th:field="*{description}"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="status">Status:</label>
+                <select th:field="*{status}" required>
+                    <option value="TODO">TODO</option>
+                    <option value="IN_PROGRESS">IN PROGRESS</option>
+                    <option value="PENDING">PENDING</option>
+                    <option value="COMPLETED">COMPLETED</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="priority">Priority:</label>
+                <select th:field="*{priority}" required>
+                    <option value="LOW">LOW</option>
+                    <option value="MEDIUM">MEDIUM</option>
+                    <option value="HIGH">HIGH</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="assigneeId">Assignee ID:</label>
+                <input type="number" th:field="*{assigneeId}" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="projectId">Project ID:</label>
+                <input type="number" th:field="*{projectId}" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="dueDate">Due Date:</label>
+                <input type="datetime-local" th:field="*{dueDate}">
+            </div>
+            
+            <button type="submit" class="button">Save Task</button>
+            <a href="/tasks" class="button">Cancel</a>
+        </form>
+    </div>
+</body>
+</html>

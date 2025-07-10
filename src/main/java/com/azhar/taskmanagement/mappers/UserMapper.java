@@ -30,22 +30,32 @@ public class UserMapper {
         userDTO.setCreatedAt(user.getCreatedAt());
         userDTO.setUpdatedAt(user.getUpdatedAt());
 
-        // Set only project IDs in DTO
+        // Set project IDs and names in DTO
         if (user.getProjects() != null) {
             List<Long> projectIds = user.getProjects()
                     .stream()
-                    .map(Project::getId) // Extract only the project IDs
+                    .map(Project::getId)
+                    .toList();
+            List<String> projectNames = user.getProjects()
+                    .stream()
+                    .map(Project::getName)
                     .toList();
             userDTO.setProjectIds(projectIds);
+            userDTO.setProjectNames(projectNames);
         }
 
-        // Convert and set tasks to DTOs
+        // Set task IDs and names in DTO
         if (user.getTasks() != null) {
             List<Long> taskIds = user.getTasks()
                     .stream()
-                    .map(Task::getId) // Assuming TaskMapper exists
+                    .map(Task::getId)
+                    .toList();
+            List<String> taskNames = user.getTasks()
+                    .stream()
+                    .map(Task::getTitle)
                     .toList();
             userDTO.setTaskIds(taskIds);
+            userDTO.setTaskNames(taskNames);
         }
 
         return userDTO;
