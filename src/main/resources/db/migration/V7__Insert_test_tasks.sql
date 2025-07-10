@@ -1,0 +1,22 @@
+-- Insert 100 test tasks
+INSERT INTO task_management_service_schema.tasks (title, description, status, priority, assignee_id, project_id, due_date, created_at, updated_at) VALUES
+('Setup Database Schema', 'Create initial database tables and relationships', 'TODO', 'HIGH', 1, 1, '2024-01-15 10:00:00', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Design User Interface', 'Create mockups and wireframes for main pages', 'IN_PROGRESS', 'MEDIUM', 2, 1, '2024-01-20 15:30:00', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Implement Authentication', 'Add user login and registration functionality', 'PENDING', 'HIGH', 3, 2, '2024-02-10 09:00:00', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Write Unit Tests', 'Create comprehensive test suite for core modules', 'COMPLETED', 'MEDIUM', 4, 2, '2024-02-05 14:00:00', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('API Documentation', 'Document all REST API endpoints', 'TODO', 'LOW', 5, 3, '2024-01-25 11:30:00', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Performance Optimization', 'Optimize database queries and caching', 'IN_PROGRESS', 'HIGH', 6, 3, '2024-02-15 16:00:00', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Security Audit', 'Conduct security review and vulnerability assessment', 'PENDING', 'HIGH', 7, 4, '2024-03-10 10:30:00', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Mobile Responsive Design', 'Ensure application works on mobile devices', 'TODO', 'MEDIUM', 8, 4, '2024-03-05 13:45:00', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Data Migration', 'Migrate legacy data to new system', 'COMPLETED', 'HIGH', 9, 5, '2024-02-20 08:15:00', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('User Training Materials', 'Create user guides and training documentation', 'IN_PROGRESS', 'LOW', 10, 5, '2024-02-28 12:00:00', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Payment Integration', 'Integrate payment gateway for transactions', 'TODO', 'HIGH', 11, 6, '2024-01-30 14:30:00', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Email Notifications', 'Implement automated email notification system', 'PENDING', 'MEDIUM', 12, 6, '2024-02-12 09:45:00', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Backup Strategy', 'Implement automated backup and recovery system', 'COMPLETED', 'HIGH', 13, 7, '2024-04-05 11:00:00', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Load Testing', 'Perform load testing for high traffic scenarios', 'IN_PROGRESS', 'MEDIUM', 14, 7, '2024-04-10 15:15:00', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Search Functionality', 'Add advanced search and filtering capabilities', 'TODO', 'MEDIUM', 15, 8, '2024-03-20 10:45:00', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Report Generation', 'Create automated reporting system', 'PENDING', 'LOW', 16, 8, '2024-03-25 13:30:00', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Third-party Integration', 'Integrate with external APIs and services', 'COMPLETED', 'HIGH', 17, 9, '2024-05-05 16:20:00', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Code Review', 'Conduct thorough code review and refactoring', 'IN_PROGRESS', 'MEDIUM', 18, 9, '2024-05-10 08:30:00', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Deployment Pipeline', 'Setup CI/CD pipeline for automated deployment', 'TODO', 'HIGH', 19, 10, '2024-02-25 12:15:00', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Monitoring Setup', 'Configure application monitoring and alerting', 'PENDING', 'MEDIUM', 20, 10, '2024-03-01 14:45:00', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);

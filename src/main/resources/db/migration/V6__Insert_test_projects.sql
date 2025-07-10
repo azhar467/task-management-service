@@ -1,0 +1,22 @@
+-- Insert 100 test projects
+INSERT INTO task_management_service_schema.projects (name, description, created_by, start_date, end_date, created_at, updated_at) VALUES
+('E-Commerce Platform', 'Building a modern e-commerce platform', 1, '2024-01-01', '2024-06-30', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Mobile Banking App', 'Secure mobile banking application', 2, '2024-02-01', '2024-08-31', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('CRM System', 'Customer relationship management system', 3, '2024-01-15', '2024-07-15', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Inventory Management', 'Warehouse inventory tracking system', 4, '2024-03-01', '2024-09-30', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Social Media Dashboard', 'Analytics dashboard for social media', 5, '2024-02-15', '2024-08-15', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Learning Management System', 'Online education platform', 6, '2024-01-10', '2024-12-31', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Healthcare Portal', 'Patient management portal', 7, '2024-04-01', '2024-10-31', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Real Estate Platform', 'Property listing and management', 8, '2024-03-15', '2024-11-15', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Food Delivery App', 'Restaurant food delivery service', 9, '2024-05-01', '2024-12-01', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Travel Booking System', 'Flight and hotel booking platform', 10, '2024-02-20', '2024-09-20', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Project Management Tool', 'Team collaboration and project tracking', 11, '2024-01-05', '2024-08-05', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Financial Analytics', 'Investment portfolio analysis tool', 12, '2024-03-10', '2024-10-10', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('HR Management System', 'Employee management and payroll', 13, '2024-04-15', '2024-11-30', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Supply Chain Management', 'Logistics and supply chain tracking', 14, '2024-01-25', '2024-07-25', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Content Management System', 'Website content management platform', 15, '2024-02-10', '2024-09-10', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('IoT Monitoring Platform', 'Internet of Things device monitoring', 16, '2024-05-15', '2024-12-15', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Video Streaming Service', 'Online video streaming platform', 17, '2024-03-20', '2024-10-20', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Fitness Tracking App', 'Health and fitness monitoring', 18, '2024-04-05', '2024-11-05', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Event Management System', 'Conference and event planning tool', 19, '2024-01-30', '2024-08-30', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Document Management', 'Digital document storage and sharing', 20, '2024-02-25', '2024-09-25', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);

@@ -1,0 +1,22 @@
+-- Insert 100 test users
+INSERT INTO task_management_service_schema.users (name, email, role, gender, date_of_birth, created_at, updated_at) VALUES
+('John Smith', 'john.smith@example.com', 'ADMIN', 'MALE', '1990-01-15', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Jane Doe', 'jane.doe@example.com', 'DEVELOPER', 'FEMALE', '1992-03-22', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Mike Johnson', 'mike.johnson@example.com', 'TESTER', 'MALE', '1988-07-10', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Sarah Wilson', 'sarah.wilson@example.com', 'DEVELOPER', 'FEMALE', '1991-11-05', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('David Brown', 'david.brown@example.com', 'ADMIN', 'MALE', '1985-09-18', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Lisa Garcia', 'lisa.garcia@example.com', 'TESTER', 'FEMALE', '1993-04-12', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Robert Davis', 'robert.davis@example.com', 'DEVELOPER', 'MALE', '1987-12-03', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Emily Martinez', 'emily.martinez@example.com', 'ADMIN', 'FEMALE', '1989-06-25', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('James Anderson', 'james.anderson@example.com', 'TESTER', 'MALE', '1994-02-14', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Maria Rodriguez', 'maria.rodriguez@example.com', 'DEVELOPER', 'FEMALE', '1990-08-30', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Chris Taylor', 'chris.taylor@example.com', 'ADMIN', 'MALE', '1986-05-17', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Anna Thomas', 'anna.thomas@example.com', 'TESTER', 'FEMALE', '1992-10-08', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Kevin White', 'kevin.white@example.com', 'DEVELOPER', 'MALE', '1988-01-20', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Jessica Lee', 'jessica.lee@example.com', 'ADMIN', 'FEMALE', '1991-07-13', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Daniel Harris', 'daniel.harris@example.com', 'TESTER', 'MALE', '1987-03-26', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Ashley Clark', 'ashley.clark@example.com', 'DEVELOPER', 'FEMALE', '1993-09-11', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Matthew Lewis', 'matthew.lewis@example.com', 'ADMIN', 'MALE', '1985-12-04', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Amanda Walker', 'amanda.walker@example.com', 'TESTER', 'FEMALE', '1990-04-19', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Ryan Hall', 'ryan.hall@example.com', 'DEVELOPER', 'MALE', '1989-08-07', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Nicole Young', 'nicole.young@example.com', 'ADMIN', 'FEMALE', '1992-01-28', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
