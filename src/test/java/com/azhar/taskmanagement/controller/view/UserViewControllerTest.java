@@ -32,8 +32,8 @@ class UserViewControllerTest {
     @Test
     void listUsers_ShouldReturnUserListView() throws Exception {
         List<UserDTO> users = Arrays.asList(
-                new UserDTO(1L, "John", "MALE", LocalDate.of(1990, 1, 1), "john@example.com", "ADMIN", null, null, null, null),
-                new UserDTO(2L, "Jane", "FEMALE", LocalDate.of(1992, 2, 2), "jane@example.com", "USER", null, null, null, null)
+                new UserDTO(1L, "John", "MALE", LocalDate.of(1990, 1, 1), "john@example.com", "ADMIN", null, null, null, null,null, null),
+                new UserDTO(2L, "Jane", "FEMALE", LocalDate.of(1992, 2, 2), "jane@example.com", "USER", null, null, null, null,null, null)
         );
 
         when(userService.getAllUsers()).thenReturn(users);
