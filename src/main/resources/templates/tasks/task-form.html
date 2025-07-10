@@ -1,12 +1,20 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <title>Task Form</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
 <body>
-    <div class="container">
-        <h1>Task Form</h1>
+<div class="container">
+    <h1>Task Form</h1>
+
+    <!-- Navigation Links -->
+    <div class="nav-links">
+        <a th:href="@{/}">Home</a>
+        <a th:href="@{/users}">Users</a>
+        <a th:href="@{/projects}">Projects</a>
+        <a th:href="@{/tasks}">Tasks</a>
+    </div>
         
         <form th:action="@{/tasks/save}" th:object="${task}" method="post">
             <input type="hidden" th:field="*{id}">
