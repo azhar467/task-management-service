@@ -93,7 +93,7 @@ class UserControllerTest {
                 new UserDTO(2L, "Jane", "FEMALE", LocalDate.of(1992, 2, 2), "jane@example.com", "USER", null, null, null, null,null, null)
         );
 
-        when(userService.getAllUsers()).thenReturn(users);
+        when(userService.getFilteredUsers(null)).thenReturn(users);
 
         mockMvc.perform(get("/api/users"))
                 .andExpect(status().isOk())
