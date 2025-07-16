@@ -33,6 +33,7 @@ public interface UserService extends EntityService<UserDTO, Long> {
     }
     
     java.util.List<UserDTO> getAllUsers();
+    java.util.List<UserDTO> getFilteredUsers(String role);
     UserDTO getUserById(Long id);
     void deleteUser(Long id);
 }

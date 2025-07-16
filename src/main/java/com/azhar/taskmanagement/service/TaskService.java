@@ -33,6 +33,7 @@ public interface TaskService extends EntityService<TaskDTO, Long> {
     }
     
     java.util.List<TaskDTO> getAllTasks();
+    java.util.List<TaskDTO> getFilteredTasks(Long projectId, Long assigneeId, String status);
     TaskDTO getTaskById(Long id);
     void deleteTask(Long id);
 }

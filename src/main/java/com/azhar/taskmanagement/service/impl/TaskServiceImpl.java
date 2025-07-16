@@ -52,6 +52,16 @@ public class TaskServiceImpl implements TaskService {
     public List<TaskDTO> getAllTasks() {
         return taskRepository.findAll().stream().map(TaskMapper::toDto).toList();
     }
+    
+    @Override
+    public List<TaskDTO> getFilteredTasks(Long projectId, Long assigneeId, String status) {
+        if (projectId == null && assigneeId == null && status == null) {
+            return getAllTasks();
+        }
+        TaskStatus taskStatus = status != null ? TaskStatus.valueOf(status) : null;
+        return taskRepository.findByFilters(projectId, assigneeId, taskStatus)
+                .stream().map(TaskMapper::toDto).toList();
+    }
 
     @Override
     public TaskDTO getTaskById(Long id) {

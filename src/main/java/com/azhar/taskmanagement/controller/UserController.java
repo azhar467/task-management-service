@@ -41,8 +41,9 @@ public class UserController {
     @GetMapping
     @Operation(summary = "Get all users", description = "Retrieves all users.")
     @ApiResponse(responseCode = "200", description = "Users retrieved successfully.")
-    public ResponseEntity<List<UserDTO>> getAllUsers() {
-        return ResponseEntity.ok(userService.getAllUsers());
+    public ResponseEntity<List<UserDTO>> getAllUsers(
+            @RequestParam(required = false) String role) {
+        return ResponseEntity.ok(userService.getFilteredUsers(role));
     }
     
     @GetMapping("/{id}")

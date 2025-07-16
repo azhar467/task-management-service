@@ -54,6 +54,15 @@ public class UserServiceImpl implements UserService {
         log.info("Total Number of Users: {}", users.size());
         return users.stream().map(UserMapper::toDto).toList();
     }
+    
+    @Override
+    public List<UserDTO> getFilteredUsers(String role) {
+        if (role == null || role.isEmpty()) {
+            return getAllUsers();
+        }
+        UserRole userRole = UserRole.valueOf(role.toUpperCase());
+        return userRepository.findByRole(userRole).stream().map(UserMapper::toDto).toList();
+    }
 
     @Override
     public UserDTO getUserById(Long id) {
