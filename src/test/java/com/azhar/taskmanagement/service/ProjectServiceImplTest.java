@@ -9,6 +9,7 @@ import com.azhar.taskmanagement.repository.ProjectRepository;
 import com.azhar.taskmanagement.repository.TaskRepository;
 import com.azhar.taskmanagement.repository.UserRepository;
 import com.azhar.taskmanagement.service.impl.ProjectServiceImpl;
+import com.azhar.taskmanagement.service.validation.ProjectValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -39,6 +40,9 @@ class ProjectServiceImplTest {
 
     @InjectMocks
     private ProjectServiceImpl projectService;
+
+    @Mock
+    private ProjectValidator projectValidator;
 
     private Project project;
     private ProjectDTO projectDTO;

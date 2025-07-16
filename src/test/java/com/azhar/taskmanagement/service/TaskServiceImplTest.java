@@ -11,6 +11,7 @@ import com.azhar.taskmanagement.repository.ProjectRepository;
 import com.azhar.taskmanagement.repository.TaskRepository;
 import com.azhar.taskmanagement.repository.UserRepository;
 import com.azhar.taskmanagement.service.impl.TaskServiceImpl;
+import com.azhar.taskmanagement.service.validation.TaskValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -41,6 +42,9 @@ class TaskServiceImplTest {
 
     @InjectMocks
     private TaskServiceImpl taskService;
+
+    @Mock
+    private TaskValidator taskValidator;
 
     private Task task;
     private TaskDTO taskDTO;
@@ -81,7 +85,6 @@ class TaskServiceImplTest {
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
         when(projectRepository.findById(1L)).thenReturn(Optional.of(project));
         when(taskRepository.save(any(Task.class))).thenReturn(task);
-        when(userRepository.save(any(User.class))).thenReturn(user);
 
         TaskDTO result = taskService.saveTask(taskDTO);
 
@@ -121,8 +124,8 @@ class TaskServiceImplTest {
     @Test
     void updateTask_ShouldReturnUpdatedTask() {
         taskDTO.setTitle("Updated Task");
-        taskDTO.setAssigneeName(null);
-        taskDTO.setProjectName(null);
+        taskDTO.setAssigneeId(null);
+        taskDTO.setProjectId(null);
 
         when(taskRepository.findById(1L)).thenReturn(Optional.of(task));
         when(taskRepository.save(any(Task.class))).thenReturn(task);

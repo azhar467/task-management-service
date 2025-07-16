@@ -9,6 +9,7 @@ import com.azhar.taskmanagement.repository.UserRepository;
 import com.azhar.taskmanagement.repository.ProjectRepository;
 import com.azhar.taskmanagement.repository.TaskRepository;
 import com.azhar.taskmanagement.service.impl.UserServiceImpl;
+import com.azhar.taskmanagement.service.validation.UserValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -36,6 +37,9 @@ class UserServiceImplTest {
 
     @Mock
     private TaskRepository taskRepository;
+
+    @Mock
+    private UserValidator userValidator;
 
     @InjectMocks
     private UserServiceImpl userService;
