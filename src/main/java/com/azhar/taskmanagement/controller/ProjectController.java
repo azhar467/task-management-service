@@ -1,9 +1,7 @@
 package com.azhar.taskmanagement.controller;
 
 import com.azhar.taskmanagement.dao.dto.ProjectDTO;
-import com.azhar.taskmanagement.service.BaseService;
 import com.azhar.taskmanagement.service.ProjectService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,11 +10,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/projects")
-public class ProjectController extends BaseService {
+public class ProjectController {
 
-    protected final ProjectService projectService;
+    private final ProjectService projectService;
 
-    @Autowired
     public ProjectController(ProjectService projectService) {
         this.projectService = projectService;
     }
@@ -26,13 +23,14 @@ public class ProjectController extends BaseService {
         return new ResponseEntity<>(projectService.saveProject(projectDTO), HttpStatus.CREATED);
     }
 
-    @GetMapping({"/{id}",""})
-    public ResponseEntity<List<ProjectDTO>> getProjects(@PathVariable(required = false) Long id){
-        if (id!=null){
-            return new ResponseEntity<>(List.of(projectService.getProjectById(id)),HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(projectService.getAllProjects(),HttpStatus.OK);
-        }
+    @GetMapping
+    public ResponseEntity<List<ProjectDTO>> getAllProjects(){
+        return ResponseEntity.ok(projectService.getAllProjects());
+    }
+    
+    @GetMapping("/{id}")
+    public ResponseEntity<ProjectDTO> getProjectById(@PathVariable Long id){
+        return ResponseEntity.ok(projectService.getProjectById(id));
     }
 
     @PutMapping("/{id}")
@@ -41,7 +39,8 @@ public class ProjectController extends BaseService {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteMapping(@PathVariable("id") Long id){
+    public ResponseEntity<Void> deleteProject(@PathVariable Long id){
         projectService.deleteProject(id);
+        return ResponseEntity.noContent().build();
     }
 }

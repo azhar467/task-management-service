@@ -1,15 +1,38 @@
 package com.azhar.taskmanagement.service;
 
 import com.azhar.taskmanagement.dao.dto.ProjectDTO;
-import org.springframework.stereotype.Service;
+import com.azhar.taskmanagement.service.interfaces.EntityService;
 
-import java.util.List;
-
-@Service
-public interface ProjectService {
+public interface ProjectService extends EntityService<ProjectDTO, Long> {
     ProjectDTO saveProject(ProjectDTO projectDTO);
-    List<ProjectDTO> getAllProjects();
+    ProjectDTO updateProjectDetails(Long id, ProjectDTO projectDTO);
+    
+    @Override
+    default ProjectDTO save(ProjectDTO entity) {
+        return saveProject(entity);
+    }
+    
+    @Override
+    default ProjectDTO update(Long id, ProjectDTO entity) {
+        return updateProjectDetails(id, entity);
+    }
+    
+    @Override
+    default ProjectDTO findById(Long id) {
+        return getProjectById(id);
+    }
+    
+    @Override
+    default java.util.List<ProjectDTO> findAll() {
+        return getAllProjects();
+    }
+    
+    @Override
+    default void deleteById(Long id) {
+        deleteProject(id);
+    }
+    
+    java.util.List<ProjectDTO> getAllProjects();
     ProjectDTO getProjectById(Long id);
-    ProjectDTO updateProjectDetails(Long id,ProjectDTO projectDTO);
     void deleteProject(Long id);
 }

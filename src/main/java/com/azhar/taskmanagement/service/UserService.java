@@ -1,16 +1,38 @@
 package com.azhar.taskmanagement.service;
 
-
 import com.azhar.taskmanagement.dao.dto.UserDTO;
-import org.springframework.stereotype.Service;
+import com.azhar.taskmanagement.service.interfaces.EntityService;
 
-import java.util.List;
-
-@Service
-public interface UserService {
-    UserDTO saveUser(UserDTO userdto);
-    List<UserDTO> getAllUsers();
+public interface UserService extends EntityService<UserDTO, Long> {
+    UserDTO saveUser(UserDTO userDTO);
+    UserDTO updateUser(Long id, UserDTO userDTO);
+    
+    @Override
+    default UserDTO save(UserDTO entity) {
+        return saveUser(entity);
+    }
+    
+    @Override
+    default UserDTO update(Long id, UserDTO entity) {
+        return updateUser(id, entity);
+    }
+    
+    @Override
+    default UserDTO findById(Long id) {
+        return getUserById(id);
+    }
+    
+    @Override
+    default java.util.List<UserDTO> findAll() {
+        return getAllUsers();
+    }
+    
+    @Override
+    default void deleteById(Long id) {
+        deleteUser(id);
+    }
+    
+    java.util.List<UserDTO> getAllUsers();
     UserDTO getUserById(Long id);
-    UserDTO updateUser(Long id,UserDTO userDTO);
     void deleteUser(Long id);
 }

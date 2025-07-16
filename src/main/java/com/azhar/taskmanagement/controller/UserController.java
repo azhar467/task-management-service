@@ -1,6 +1,5 @@
 package com.azhar.taskmanagement.controller;
 
-import com.azhar.taskmanagement.service.BaseService;
 import com.azhar.taskmanagement.dao.dto.UserDTO;
 import com.azhar.taskmanagement.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -10,7 +9,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,11 +18,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/users")
 @Slf4j
-public class UserController extends BaseService {
+public class UserController {
 
-    protected final UserService userService;
+    private final UserService userService;
 
-    @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
@@ -41,19 +38,22 @@ public class UserController extends BaseService {
         return new ResponseEntity<>(userService.saveUser(userDTO), HttpStatus.CREATED);
     }
 
-    @GetMapping({"/{id}", ""})
-    @Operation(summary = "Get user(s)", description = "Retrieves a user by ID or all users if no ID is provided.")
+    @GetMapping
+    @Operation(summary = "Get all users", description = "Retrieves all users.")
+    @ApiResponse(responseCode = "200", description = "Users retrieved successfully.")
+    public ResponseEntity<List<UserDTO>> getAllUsers() {
+        return ResponseEntity.ok(userService.getAllUsers());
+    }
+    
+    @GetMapping("/{id}")
+    @Operation(summary = "Get user by ID", description = "Retrieves a user by ID.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Users retrieved successfully."),
+            @ApiResponse(responseCode = "200", description = "User retrieved successfully."),
             @ApiResponse(responseCode = "404", description = "User not found.")})
-    public ResponseEntity<List<UserDTO>> getUsers(
-            @Parameter(description = "ID of the user to retrieve. If not provided, all users will be retrieved.")
-            @PathVariable(required = false) Long id) {
-        if (id != null) {
-            return ResponseEntity.ok(List.of(userService.getUserById(id)));
-        } else {
-            return ResponseEntity.ok(userService.getAllUsers());
-        }
+    public ResponseEntity<UserDTO> getUserById(
+            @Parameter(description = "ID of the user to retrieve.", required = true)
+            @PathVariable Long id) {
+        return ResponseEntity.ok(userService.getUserById(id));
     }
 
     @PutMapping("/{id}")
@@ -75,10 +75,11 @@ public class UserController extends BaseService {
             @ApiResponse(responseCode = "204", description = "User deleted successfully."),
             @ApiResponse(responseCode = "404", description = "User not found.")
     })
-    public void deleteUser(
+    public ResponseEntity<Void> deleteUser(
             @Parameter(description = "ID of the user to delete.", required = true)
-            @PathVariable(value = "id") Long id) {
-        log.info("Deleting user with Id: {}",id);
+            @PathVariable Long id) {
+        log.info("Deleting user with Id: {}", id);
         userService.deleteUser(id);
+        return ResponseEntity.noContent().build();
     }
 }

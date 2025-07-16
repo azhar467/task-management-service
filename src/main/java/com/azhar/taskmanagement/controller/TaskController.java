@@ -1,11 +1,7 @@
 package com.azhar.taskmanagement.controller;
 
-import com.azhar.taskmanagement.exception.TaskNotFoundException;
-import com.azhar.taskmanagement.mappers.TaskMapper;
 import com.azhar.taskmanagement.dao.dto.TaskDTO;
-import com.azhar.taskmanagement.service.BaseService;
 import com.azhar.taskmanagement.service.TaskService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,11 +10,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/tasks")
-public class TaskController extends BaseService {
+public class TaskController {
 
     private final TaskService taskService;
 
-    @Autowired
     public TaskController(TaskService taskService){
         this.taskService = taskService;
     }
@@ -31,12 +26,14 @@ public class TaskController extends BaseService {
         return new ResponseEntity<>(taskService.saveTask(taskDTO), HttpStatus.CREATED);
     }
 
-    @GetMapping({"/{id}",""})
-    public ResponseEntity<List<TaskDTO>> getTasks(@PathVariable(required = false) Long id){
-        if (id!=null){
-            return new ResponseEntity<>(List.of(TaskMapper.toDto(taskRepository.findById(id).orElseThrow(()->new TaskNotFoundException(id)))),HttpStatus.OK);
-        }
-        return new ResponseEntity<>(taskRepository.findAll().stream().map(TaskMapper::toDto).toList(),HttpStatus.OK);
+    @GetMapping
+    public ResponseEntity<List<TaskDTO>> getAllTasks(){
+        return ResponseEntity.ok(taskService.getAllTasks());
+    }
+    
+    @GetMapping("/{id}")
+    public ResponseEntity<TaskDTO> getTaskById(@PathVariable Long id){
+        return ResponseEntity.ok(taskService.getTaskById(id));
     }
 
     @PutMapping("/{id}")
@@ -45,8 +42,9 @@ public class TaskController extends BaseService {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteTask(@PathVariable Long id){
+    public ResponseEntity<Void> deleteTask(@PathVariable Long id){
         taskService.deleteTask(id);
+        return ResponseEntity.noContent().build();
     }
 
 }
