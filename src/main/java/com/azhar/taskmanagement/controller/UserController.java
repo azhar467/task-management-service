@@ -1,6 +1,7 @@
 package com.azhar.taskmanagement.controller;
 
 import com.azhar.taskmanagement.dao.dto.UserDTO;
+import com.azhar.taskmanagement.dao.enums.UserRole;
 import com.azhar.taskmanagement.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -42,7 +43,7 @@ public class UserController {
     @Operation(summary = "Get all users", description = "Retrieves all users.")
     @ApiResponse(responseCode = "200", description = "Users retrieved successfully.")
     public ResponseEntity<List<UserDTO>> getAllUsers(
-            @RequestParam(required = false) String role) {
+            @RequestParam(required = false) @Parameter(schema = @Schema(implementation = UserRole.class)) String role) {
         return ResponseEntity.ok(userService.getFilteredUsers(role));
     }
     

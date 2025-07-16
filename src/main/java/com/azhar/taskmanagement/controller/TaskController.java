@@ -1,7 +1,11 @@
 package com.azhar.taskmanagement.controller;
 
 import com.azhar.taskmanagement.dao.dto.TaskDTO;
+import com.azhar.taskmanagement.dao.enums.TaskStatus;
+import com.azhar.taskmanagement.dao.enums.UserRole;
 import com.azhar.taskmanagement.service.TaskService;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +34,7 @@ public class TaskController {
     public ResponseEntity<List<TaskDTO>> getAllTasks(
             @RequestParam(required = false) Long projectId,
             @RequestParam(required = false) Long assigneeId,
-            @RequestParam(required = false) String status){
+            @RequestParam(required = false) @Parameter(schema = @Schema(implementation = TaskStatus.class)) String status){
         return ResponseEntity.ok(taskService.getFilteredTasks(projectId, assigneeId, status));
     }
     
