@@ -80,8 +80,8 @@ class ProjectControllerTest {
 
         mockMvc.perform(get("/api/projects/1"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].id").value(1))
-                .andExpect(jsonPath("$[0].name").value("Test Project"));
+                .andExpect(jsonPath(".id").value(1))
+                .andExpect(jsonPath(".name").value("Test Project"));
     }
 
     @Test
@@ -121,6 +121,6 @@ class ProjectControllerTest {
     @Test
     void deleteProject_ShouldReturnNoContent() throws Exception {
         mockMvc.perform(delete("/api/projects/1"))
-                .andExpect(status().isOk());
+                .andExpect(status().isNoContent());
     }
 }

@@ -111,6 +111,6 @@ class TaskControllerTest {
     @Test
     void deleteTask_ShouldReturnNoContent() throws Exception {
         mockMvc.perform(delete("/api/tasks/1"))
-                .andExpect(status().isOk());
+                .andExpect(status().isNoContent());
     }
 }

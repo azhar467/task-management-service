@@ -73,7 +73,7 @@ class UserControllerTest {
     }
 
     @Test
-    void getUsers_WithId_ShouldReturnSingleUser() throws Exception {
+    void getUserById_ShouldReturnSingleUser() throws Exception {
         UserDTO user = new UserDTO();
         user.setId(1L);
         user.setName("John Doe");
@@ -82,12 +82,12 @@ class UserControllerTest {
 
         mockMvc.perform(get("/api/users/1"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].id").value(1))
-                .andExpect(jsonPath("$[0].name").value("John Doe"));
+                .andExpect(jsonPath("$.id").value(1))
+                .andExpect(jsonPath("$.name").value("John Doe"));
     }
 
     @Test
-    void getUsers_WithoutId_ShouldReturnAllUsers() throws Exception {
+    void getAllUsers_ShouldReturnAllUsers() throws Exception {
         List<UserDTO> users = Arrays.asList(
                 new UserDTO(1L, "John", "MALE", LocalDate.of(1990, 1, 1), "john@example.com", "ADMIN", null, null, null, null,null,null),
                 new UserDTO(2L, "Jane", "FEMALE", LocalDate.of(1992, 2, 2), "jane@example.com", "USER", null, null, null, null,null, null)
@@ -123,6 +123,6 @@ class UserControllerTest {
     @Test
     void deleteUser_ShouldReturnNoContent() throws Exception {
         mockMvc.perform(delete("/api/users/1"))
-                .andExpect(status().isOk());
+                .andExpect(status().isNoContent());
     }
 }
