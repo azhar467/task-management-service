@@ -1,5 +1,6 @@
 package com.azhar.taskmanagement.controller;
 
+import com.azhar.taskmanagement.audit.AuditLogRepository;
 import com.azhar.taskmanagement.dao.dto.TaskDTO;
 import com.azhar.taskmanagement.dao.enums.TaskPriority;
 import com.azhar.taskmanagement.dao.enums.TaskStatus;
@@ -43,6 +44,9 @@ class TaskControllerTest {
 
     @MockBean
     private UserRepository userRepository;
+
+    @MockBean
+    private AuditLogRepository auditLogRepository;
 
     @Autowired
     private ObjectMapper objectMapper;

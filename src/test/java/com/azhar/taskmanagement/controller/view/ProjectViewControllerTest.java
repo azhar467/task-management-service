@@ -1,5 +1,6 @@
 package com.azhar.taskmanagement.controller.view;
 
+import com.azhar.taskmanagement.audit.AuditLogRepository;
 import com.azhar.taskmanagement.dao.dto.ProjectDTO;
 import com.azhar.taskmanagement.service.ProjectService;
 import org.junit.jupiter.api.Test;
@@ -28,6 +29,9 @@ class ProjectViewControllerTest {
 
     @MockBean
     private ProjectService projectService;
+
+    @MockBean
+    private AuditLogRepository auditLogRepository;
 
     @Test
     void listProjects_ShouldReturnProjectListView() throws Exception {

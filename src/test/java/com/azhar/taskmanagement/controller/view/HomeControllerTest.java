@@ -1,11 +1,10 @@
 package com.azhar.taskmanagement.controller.view;
 
-import com.azhar.taskmanagement.controller.TaskController;
+import com.azhar.taskmanagement.audit.AuditLogRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -18,6 +17,9 @@ class HomeControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @MockBean
+    private AuditLogRepository auditLogRepository;
 
     @Test
     void home_ShouldReturnHomeView() throws Exception {

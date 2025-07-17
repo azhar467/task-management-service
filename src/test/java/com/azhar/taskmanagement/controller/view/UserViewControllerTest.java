@@ -1,5 +1,6 @@
 package com.azhar.taskmanagement.controller.view;
 
+import com.azhar.taskmanagement.audit.AuditLogRepository;
 import com.azhar.taskmanagement.dao.dto.UserDTO;
 import com.azhar.taskmanagement.service.UserService;
 import org.junit.jupiter.api.Test;
@@ -28,6 +29,9 @@ class UserViewControllerTest {
 
     @MockBean
     private UserService userService;
+
+    @MockBean
+    private AuditLogRepository auditLogRepository;
 
     @Test
     void listUsers_ShouldReturnUserListView() throws Exception {

@@ -1,5 +1,6 @@
 package com.azhar.taskmanagement.controller;
 
+import com.azhar.taskmanagement.audit.AuditLogRepository;
 import com.azhar.taskmanagement.dao.dto.ProjectDTO;
 import com.azhar.taskmanagement.repository.ProjectRepository;
 import com.azhar.taskmanagement.repository.TaskRepository;
@@ -39,6 +40,9 @@ class ProjectControllerTest {
 
     @MockBean
     private TaskRepository taskRepository;
+
+    @MockBean
+    private AuditLogRepository auditLogRepository;
 
     @MockBean
     private UserRepository userRepository;

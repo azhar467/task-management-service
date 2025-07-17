@@ -1,5 +1,6 @@
 package com.azhar.taskmanagement.controller;
 
+import com.azhar.taskmanagement.audit.AuditLogRepository;
 import com.azhar.taskmanagement.dao.dto.UserDTO;
 import com.azhar.taskmanagement.repository.ProjectRepository;
 import com.azhar.taskmanagement.repository.TaskRepository;
@@ -45,6 +46,9 @@ class UserControllerTest {
 
     @MockBean
     private UserRepository userRepository;
+
+    @MockBean
+    private AuditLogRepository auditLogRepository;
 
     @Test
     void saveUser_ShouldReturnCreatedUser() throws Exception {
